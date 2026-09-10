@@ -1,0 +1,848 @@
+{
+  "manifest_summary": {
+    "n_responses_evaluated": 2700,
+    "pilot_mode": false,
+    "model_identifiers": {
+      "generator": "Qwen/Qwen3-8B",
+      "verifier": "<PROJECT_ROOT>/experiments/verifier_binary_final/final",
+      "reranker": "BAAI/bge-reranker-large"
+    },
+    "frozen_config": {
+      "max_correction_attempts": 2,
+      "pipeline": {
+        "retrieval_top_k": 20,
+        "rerank_top_n": 5,
+        "verifier_max_length": 256
+      },
+      "decision_policy": {
+        "entailment_threshold": 0.5,
+        "contradiction_threshold": 0.5
+      },
+      "generation": {
+        "max_new_tokens": 256,
+        "do_sample": false,
+        "seed": 42
+      }
+    }
+  },
+  "overall_metrics_by_condition": {
+    "B_generated": {
+      "n": 2700,
+      "hallucination_prevalence_gold": 0.34925925925925927,
+      "attempt0_detection_metrics": {
+        "n": 2700,
+        "accuracy": 0.5588888888888889,
+        "hallucinated_precision": 0.42970521541950113,
+        "hallucinated_recall": 0.8038176033934252,
+        "hallucinated_f1": 0.560029553010713,
+        "not_hallucinated_precision": 0.8023504273504274,
+        "not_hallucinated_recall": 0.42743312464428,
+        "not_hallucinated_f1": 0.5577422948384702,
+        "macro_f1": 0.5588859239245916,
+        "confusion_matrix": {
+          "tp": 758,
+          "fp": 1006,
+          "fn": 185,
+          "tn": 751
+        }
+      },
+      "final_outcome_metrics": {
+        "n": 2700,
+        "accuracy": 0.5803703703703704,
+        "hallucinated_precision": 0.4426328502415459,
+        "hallucinated_recall": 0.777306468716861,
+        "hallucinated_f1": 0.5640631011927665,
+        "not_hallucinated_precision": 0.7988505747126436,
+        "not_hallucinated_recall": 0.4746727376209448,
+        "not_hallucinated_f1": 0.5955016065690825,
+        "macro_f1": 0.5797823538809245,
+        "confusion_matrix": {
+          "tp": 733,
+          "fp": 923,
+          "fn": 210,
+          "tn": 834
+        }
+      },
+      "decision_rates": {
+        "n": 2700,
+        "attempt0_accept_rate": 0.3466666666666667,
+        "attempt0_correct_rate": 0.6533333333333333,
+        "attempt0_abstain_rate": 0.0,
+        "final_accept_rate": 0.38666666666666666,
+        "final_abstain_rate": 0.6133333333333333,
+        "correction_attempted_rate": 0.6533333333333333,
+        "correction_success_rate_among_attempted": 0.061224489795918366,
+        "max_attempts_reached_rate": 0.6133333333333333
+      },
+      "correction_outcome_categories": {
+        "hallucinated_still_flagged": 733,
+        "not_hallucinated_preserved": 834,
+        "hallucinated_corrected_successfully": 25,
+        "not_hallucinated_degraded": 923,
+        "hallucinated_missed": 185
+      },
+      "unnecessary_correction_count": 1006,
+      "n_failed_responses": 0
+    },
+    "C_verify_only": {
+      "n": 2700,
+      "hallucination_prevalence_gold": 0.34925925925925927,
+      "attempt0_detection_metrics": {
+        "n": 2700,
+        "accuracy": 0.4874074074074074,
+        "hallucinated_precision": 0.3927007299270073,
+        "hallucinated_recall": 0.855779427359491,
+        "hallucinated_f1": 0.5383589059372915,
+        "not_hallucinated_precision": 0.7891472868217054,
+        "not_hallucinated_recall": 0.2896983494593056,
+        "not_hallucinated_f1": 0.4238134887593672,
+        "macro_f1": 0.48108619734832936,
+        "confusion_matrix": {
+          "tp": 807,
+          "fp": 1248,
+          "fn": 136,
+          "tn": 509
+        }
+      },
+      "final_outcome_metrics": {
+        "n": 2700,
+        "accuracy": 0.4874074074074074,
+        "hallucinated_precision": 0.3927007299270073,
+        "hallucinated_recall": 0.855779427359491,
+        "hallucinated_f1": 0.5383589059372915,
+        "not_hallucinated_precision": 0.7891472868217054,
+        "not_hallucinated_recall": 0.2896983494593056,
+        "not_hallucinated_f1": 0.4238134887593672,
+        "macro_f1": 0.48108619734832936,
+        "confusion_matrix": {
+          "tp": 807,
+          "fp": 1248,
+          "fn": 136,
+          "tn": 509
+        }
+      },
+      "decision_rates": {
+        "n": 2700,
+        "attempt0_accept_rate": 0.2388888888888889,
+        "attempt0_correct_rate": 0.7611111111111111,
+        "attempt0_abstain_rate": 0.0,
+        "final_accept_rate": 0.2388888888888889,
+        "final_abstain_rate": 0.7611111111111111,
+        "correction_attempted_rate": 0.7611111111111111,
+        "correction_success_rate_among_attempted": 0.0,
+        "max_attempts_reached_rate": 0.7611111111111111
+      },
+      "correction_outcome_categories": {
+        "hallucinated_still_flagged": 807,
+        "not_hallucinated_degraded": 1248,
+        "not_hallucinated_preserved": 509,
+        "hallucinated_missed": 136
+      },
+      "unnecessary_correction_count": 1248,
+      "n_failed_responses": 0
+    },
+    "D_original_full_loop": {
+      "n": 2700,
+      "hallucination_prevalence_gold": 0.34925925925925927,
+      "attempt0_detection_metrics": {
+        "n": 2700,
+        "accuracy": 0.4874074074074074,
+        "hallucinated_precision": 0.3927007299270073,
+        "hallucinated_recall": 0.855779427359491,
+        "hallucinated_f1": 0.5383589059372915,
+        "not_hallucinated_precision": 0.7891472868217054,
+        "not_hallucinated_recall": 0.2896983494593056,
+        "not_hallucinated_f1": 0.4238134887593672,
+        "macro_f1": 0.48108619734832936,
+        "confusion_matrix": {
+          "tp": 807,
+          "fp": 1248,
+          "fn": 136,
+          "tn": 509
+        }
+      },
+      "final_outcome_metrics": {
+        "n": 2700,
+        "accuracy": 0.5511111111111111,
+        "hallucinated_precision": 0.41979725700655934,
+        "hallucinated_recall": 0.7465535524920467,
+        "hallucinated_f1": 0.5374045801526718,
+        "not_hallucinated_precision": 0.7663734115347018,
+        "not_hallucinated_recall": 0.44621513944223107,
+        "not_hallucinated_f1": 0.5640287769784172,
+        "macro_f1": 0.5507166785655445,
+        "confusion_matrix": {
+          "tp": 704,
+          "fp": 973,
+          "fn": 239,
+          "tn": 784
+        }
+      },
+      "decision_rates": {
+        "n": 2700,
+        "attempt0_accept_rate": 0.2388888888888889,
+        "attempt0_correct_rate": 0.7611111111111111,
+        "attempt0_abstain_rate": 0.0,
+        "final_accept_rate": 0.3788888888888889,
+        "final_abstain_rate": 0.6211111111111111,
+        "correction_attempted_rate": 0.7611111111111111,
+        "correction_success_rate_among_attempted": 0.18394160583941604,
+        "max_attempts_reached_rate": 0.6211111111111111
+      },
+      "correction_outcome_categories": {
+        "hallucinated_corrected_successfully": 103,
+        "not_hallucinated_degraded": 973,
+        "not_hallucinated_preserved": 784,
+        "hallucinated_still_flagged": 704,
+        "hallucinated_missed": 136
+      },
+      "unnecessary_correction_count": 1248,
+      "n_failed_responses": 0
+    },
+    "A_original_full_loop": {
+      "n": 2700,
+      "hallucination_prevalence_gold": 0.34925925925925927,
+      "attempt0_detection_metrics": {
+        "n": 2700,
+        "accuracy": 0.4874074074074074,
+        "hallucinated_precision": 0.3927007299270073,
+        "hallucinated_recall": 0.855779427359491,
+        "hallucinated_f1": 0.5383589059372915,
+        "not_hallucinated_precision": 0.7891472868217054,
+        "not_hallucinated_recall": 0.2896983494593056,
+        "not_hallucinated_f1": 0.4238134887593672,
+        "macro_f1": 0.48108619734832936,
+        "confusion_matrix": {
+          "tp": 807,
+          "fp": 1248,
+          "fn": 136,
+          "tn": 509
+        }
+      },
+      "final_outcome_metrics": {
+        "n": 2700,
+        "accuracy": 0.5511111111111111,
+        "hallucinated_precision": 0.41979725700655934,
+        "hallucinated_recall": 0.7465535524920467,
+        "hallucinated_f1": 0.5374045801526718,
+        "not_hallucinated_precision": 0.7663734115347018,
+        "not_hallucinated_recall": 0.44621513944223107,
+        "not_hallucinated_f1": 0.5640287769784172,
+        "macro_f1": 0.5507166785655445,
+        "confusion_matrix": {
+          "tp": 704,
+          "fp": 973,
+          "fn": 239,
+          "tn": 784
+        }
+      },
+      "decision_rates": {
+        "n": 2700,
+        "attempt0_accept_rate": 0.2388888888888889,
+        "attempt0_correct_rate": 0.7611111111111111,
+        "attempt0_abstain_rate": 0.0,
+        "final_accept_rate": 0.3788888888888889,
+        "final_abstain_rate": 0.6211111111111111,
+        "correction_attempted_rate": 0.7611111111111111,
+        "correction_success_rate_among_attempted": 0.18394160583941604,
+        "max_attempts_reached_rate": 0.6211111111111111
+      },
+      "correction_outcome_categories": {
+        "hallucinated_corrected_successfully": 103,
+        "not_hallucinated_degraded": 973,
+        "not_hallucinated_preserved": 784,
+        "hallucinated_still_flagged": 704,
+        "hallucinated_missed": 136
+      },
+      "unnecessary_correction_count": 1248,
+      "n_failed_responses": 0
+    },
+    "A_note": "Identical to D as literally specified - see manifest['conditions']['A_note']."
+  },
+  "latency_by_condition": {
+    "B_generated": {
+      "mean_seconds": 12.564617388954868,
+      "median_seconds": 12.039194583892822,
+      "p95_seconds": 23.97891068458557,
+      "min_seconds": 0.3504152297973633,
+      "max_seconds": 28.100959539413452,
+      "total_seconds": 33924.46695017815
+    },
+    "C_verify_only": {
+      "mean_seconds": 0.255083488534998,
+      "median_seconds": 0.2590048313140869,
+      "p95_seconds": 0.30271244049072266,
+      "min_seconds": 0.15311765670776367,
+      "max_seconds": 0.3210604190826416,
+      "total_seconds": 688.7254190444946
+    },
+    "D_original_full_loop": {
+      "mean_seconds": 7.5405223338692275,
+      "median_seconds": 8.1460040807724,
+      "p95_seconds": 17.974297285079956,
+      "min_seconds": 0.15116405487060547,
+      "max_seconds": 19.150790214538574,
+      "total_seconds": 20359.410301446915
+    }
+  },
+  "task_type_breakdown_condition_B": {
+    "Data2txt": {
+      "n": 900,
+      "hallucination_prevalence_gold": 0.6433333333333333,
+      "attempt0_detection_metrics": {
+        "n": 900,
+        "accuracy": 0.6366666666666667,
+        "hallucinated_precision": 0.6418918918918919,
+        "hallucinated_recall": 0.9844559585492227,
+        "hallucinated_f1": 0.7770961145194274,
+        "not_hallucinated_precision": 0.25,
+        "not_hallucinated_recall": 0.009345794392523364,
+        "not_hallucinated_f1": 0.018018018018018018,
+        "macro_f1": 0.3975570662687227,
+        "confusion_matrix": {
+          "tp": 570,
+          "fp": 318,
+          "fn": 9,
+          "tn": 3
+        }
+      },
+      "final_outcome_metrics": {
+        "n": 900,
+        "accuracy": 0.6366666666666667,
+        "hallucinated_precision": 0.6428571428571429,
+        "hallucinated_recall": 0.9792746113989638,
+        "hallucinated_f1": 0.7761806981519507,
+        "not_hallucinated_precision": 0.3333333333333333,
+        "not_hallucinated_recall": 0.018691588785046728,
+        "not_hallucinated_f1": 0.03539823008849557,
+        "macro_f1": 0.4057894641202231,
+        "confusion_matrix": {
+          "tp": 567,
+          "fp": 315,
+          "fn": 12,
+          "tn": 6
+        }
+      },
+      "decision_rates": {
+        "n": 900,
+        "attempt0_accept_rate": 0.013333333333333334,
+        "attempt0_correct_rate": 0.9866666666666667,
+        "attempt0_abstain_rate": 0.0,
+        "final_accept_rate": 0.02,
+        "final_abstain_rate": 0.98,
+        "correction_attempted_rate": 0.9866666666666667,
+        "correction_success_rate_among_attempted": 0.006756756756756757,
+        "max_attempts_reached_rate": 0.98
+      },
+      "correction_outcome_categories": {
+        "not_hallucinated_preserved": 6,
+        "hallucinated_corrected_successfully": 3,
+        "not_hallucinated_degraded": 315,
+        "hallucinated_still_flagged": 567,
+        "hallucinated_missed": 9
+      },
+      "unnecessary_correction_count": 318,
+      "n_failed_responses": 0,
+      "note": null
+    },
+    "QA": {
+      "n": 900,
+      "hallucination_prevalence_gold": 0.17777777777777778,
+      "attempt0_detection_metrics": {
+        "n": 900,
+        "accuracy": 0.6666666666666666,
+        "hallucinated_precision": 0.17592592592592593,
+        "hallucinated_recall": 0.2375,
+        "hallucinated_f1": 0.2021276595744681,
+        "not_hallucinated_precision": 0.8216374269005848,
+        "not_hallucinated_recall": 0.7594594594594595,
+        "not_hallucinated_f1": 0.7893258426966292,
+        "macro_f1": 0.49572675113554865,
+        "confusion_matrix": {
+          "tp": 38,
+          "fp": 178,
+          "fn": 122,
+          "tn": 562
+        }
+      },
+      "final_outcome_metrics": {
+        "n": 900,
+        "accuracy": 0.6933333333333334,
+        "hallucinated_precision": 0.1881720430107527,
+        "hallucinated_recall": 0.21875,
+        "hallucinated_f1": 0.20231213872832368,
+        "not_hallucinated_precision": 0.8249299719887955,
+        "not_hallucinated_recall": 0.7959459459459459,
+        "not_hallucinated_f1": 0.810178817056396,
+        "macro_f1": 0.5062454778923599,
+        "confusion_matrix": {
+          "tp": 35,
+          "fp": 151,
+          "fn": 125,
+          "tn": 589
+        }
+      },
+      "decision_rates": {
+        "n": 900,
+        "attempt0_accept_rate": 0.76,
+        "attempt0_correct_rate": 0.24,
+        "attempt0_abstain_rate": 0.0,
+        "final_accept_rate": 0.7933333333333333,
+        "final_abstain_rate": 0.20666666666666667,
+        "correction_attempted_rate": 0.24,
+        "correction_success_rate_among_attempted": 0.1388888888888889,
+        "max_attempts_reached_rate": 0.20666666666666667
+      },
+      "correction_outcome_categories": {
+        "not_hallucinated_preserved": 589,
+        "hallucinated_missed": 122,
+        "not_hallucinated_degraded": 151,
+        "hallucinated_still_flagged": 35,
+        "hallucinated_corrected_successfully": 3
+      },
+      "unnecessary_correction_count": 178,
+      "n_failed_responses": 0,
+      "note": null
+    },
+    "Summary": {
+      "n": 900,
+      "hallucination_prevalence_gold": 0.22666666666666666,
+      "attempt0_detection_metrics": {
+        "n": 900,
+        "accuracy": 0.37333333333333335,
+        "hallucinated_precision": 0.22727272727272727,
+        "hallucinated_recall": 0.7352941176470589,
+        "hallucinated_f1": 0.3472222222222222,
+        "not_hallucinated_precision": 0.775,
+        "not_hallucinated_recall": 0.2672413793103448,
+        "not_hallucinated_f1": 0.3974358974358974,
+        "macro_f1": 0.37232905982905984,
+        "confusion_matrix": {
+          "tp": 150,
+          "fp": 510,
+          "fn": 54,
+          "tn": 186
+        }
+      },
+      "final_outcome_metrics": {
+        "n": 900,
+        "accuracy": 0.4111111111111111,
+        "hallucinated_precision": 0.2227891156462585,
+        "hallucinated_recall": 0.6421568627450981,
+        "hallucinated_f1": 0.33080808080808083,
+        "not_hallucinated_precision": 0.7660256410256411,
+        "not_hallucinated_recall": 0.34339080459770116,
+        "not_hallucinated_f1": 0.4742063492063492,
+        "macro_f1": 0.402507215007215,
+        "confusion_matrix": {
+          "tp": 131,
+          "fp": 457,
+          "fn": 73,
+          "tn": 239
+        }
+      },
+      "decision_rates": {
+        "n": 900,
+        "attempt0_accept_rate": 0.26666666666666666,
+        "attempt0_correct_rate": 0.7333333333333333,
+        "attempt0_abstain_rate": 0.0,
+        "final_accept_rate": 0.3466666666666667,
+        "final_abstain_rate": 0.6533333333333333,
+        "correction_attempted_rate": 0.7333333333333333,
+        "correction_success_rate_among_attempted": 0.10909090909090909,
+        "max_attempts_reached_rate": 0.6533333333333333
+      },
+      "correction_outcome_categories": {
+        "hallucinated_still_flagged": 131,
+        "not_hallucinated_degraded": 457,
+        "not_hallucinated_preserved": 239,
+        "hallucinated_corrected_successfully": 19,
+        "hallucinated_missed": 54
+      },
+      "unnecessary_correction_count": 510,
+      "n_failed_responses": 0,
+      "note": null
+    }
+  },
+  "source_model_breakdown_condition_B": {
+    "gpt-3.5-turbo-0613": {
+      "n": 450,
+      "hallucination_prevalence_gold": 0.10222222222222223,
+      "attempt0_detection_metrics": {
+        "n": 450,
+        "accuracy": 0.4222222222222222,
+        "hallucinated_precision": 0.1360544217687075,
+        "hallucinated_recall": 0.8695652173913043,
+        "hallucinated_f1": 0.23529411764705885,
+        "not_hallucinated_precision": 0.9615384615384616,
+        "not_hallucinated_recall": 0.3712871287128713,
+        "not_hallucinated_f1": 0.5357142857142857,
+        "macro_f1": 0.3855042016806723,
+        "confusion_matrix": {
+          "tp": 40,
+          "fp": 254,
+          "fn": 6,
+          "tn": 150
+        }
+      },
+      "final_outcome_metrics": {
+        "n": 450,
+        "accuracy": 0.4622222222222222,
+        "hallucinated_precision": 0.14492753623188406,
+        "hallucinated_recall": 0.8695652173913043,
+        "hallucinated_f1": 0.24844720496894407,
+        "not_hallucinated_precision": 0.9655172413793104,
+        "not_hallucinated_recall": 0.4158415841584158,
+        "not_hallucinated_f1": 0.5813148788927336,
+        "macro_f1": 0.41488104193083886,
+        "confusion_matrix": {
+          "tp": 40,
+          "fp": 236,
+          "fn": 6,
+          "tn": 168
+        }
+      },
+      "decision_rates": {
+        "n": 450,
+        "attempt0_accept_rate": 0.3466666666666667,
+        "attempt0_correct_rate": 0.6533333333333333,
+        "attempt0_abstain_rate": 0.0,
+        "final_accept_rate": 0.38666666666666666,
+        "final_abstain_rate": 0.6133333333333333,
+        "correction_attempted_rate": 0.6533333333333333,
+        "correction_success_rate_among_attempted": 0.061224489795918366,
+        "max_attempts_reached_rate": 0.6133333333333333
+      },
+      "correction_outcome_categories": {
+        "not_hallucinated_preserved": 168,
+        "not_hallucinated_degraded": 236,
+        "hallucinated_still_flagged": 40,
+        "hallucinated_missed": 6
+      },
+      "unnecessary_correction_count": 254,
+      "n_failed_responses": 0,
+      "note": null
+    },
+    "gpt-4-0613": {
+      "n": 450,
+      "hallucination_prevalence_gold": 0.09333333333333334,
+      "attempt0_detection_metrics": {
+        "n": 450,
+        "accuracy": 0.4311111111111111,
+        "hallucinated_precision": 0.1360544217687075,
+        "hallucinated_recall": 0.9523809523809523,
+        "hallucinated_f1": 0.23809523809523814,
+        "not_hallucinated_precision": 0.9871794871794872,
+        "not_hallucinated_recall": 0.37745098039215685,
+        "not_hallucinated_f1": 0.5460992907801419,
+        "macro_f1": 0.39209726443769,
+        "confusion_matrix": {
+          "tp": 40,
+          "fp": 254,
+          "fn": 2,
+          "tn": 154
+        }
+      },
+      "final_outcome_metrics": {
+        "n": 450,
+        "accuracy": 0.4711111111111111,
+        "hallucinated_precision": 0.14492753623188406,
+        "hallucinated_recall": 0.9523809523809523,
+        "hallucinated_f1": 0.25157232704402516,
+        "not_hallucinated_precision": 0.9885057471264368,
+        "not_hallucinated_recall": 0.4215686274509804,
+        "not_hallucinated_f1": 0.5910652920962199,
+        "macro_f1": 0.4213188095701226,
+        "confusion_matrix": {
+          "tp": 40,
+          "fp": 236,
+          "fn": 2,
+          "tn": 172
+        }
+      },
+      "decision_rates": {
+        "n": 450,
+        "attempt0_accept_rate": 0.3466666666666667,
+        "attempt0_correct_rate": 0.6533333333333333,
+        "attempt0_abstain_rate": 0.0,
+        "final_accept_rate": 0.38666666666666666,
+        "final_abstain_rate": 0.6133333333333333,
+        "correction_attempted_rate": 0.6533333333333333,
+        "correction_success_rate_among_attempted": 0.061224489795918366,
+        "max_attempts_reached_rate": 0.6133333333333333
+      },
+      "correction_outcome_categories": {
+        "not_hallucinated_preserved": 172,
+        "not_hallucinated_degraded": 236,
+        "hallucinated_still_flagged": 40,
+        "hallucinated_missed": 2
+      },
+      "unnecessary_correction_count": 254,
+      "n_failed_responses": 0,
+      "note": null
+    },
+    "llama-2-13b-chat": {
+      "n": 450,
+      "hallucination_prevalence_gold": 0.46,
+      "attempt0_detection_metrics": {
+        "n": 450,
+        "accuracy": 0.6333333333333333,
+        "hallucinated_precision": 0.5714285714285714,
+        "hallucinated_recall": 0.8115942028985508,
+        "hallucinated_f1": 0.6706586826347305,
+        "not_hallucinated_precision": 0.75,
+        "not_hallucinated_recall": 0.48148148148148145,
+        "not_hallucinated_f1": 0.5864661654135339,
+        "macro_f1": 0.6285624240241322,
+        "confusion_matrix": {
+          "tp": 168,
+          "fp": 126,
+          "fn": 39,
+          "tn": 117
+        }
+      },
+      "final_outcome_metrics": {
+        "n": 450,
+        "accuracy": 0.6644444444444444,
+        "hallucinated_precision": 0.6014492753623188,
+        "hallucinated_recall": 0.8019323671497585,
+        "hallucinated_f1": 0.6873706004140787,
+        "not_hallucinated_precision": 0.764367816091954,
+        "not_hallucinated_recall": 0.5473251028806584,
+        "not_hallucinated_f1": 0.6378896882494004,
+        "macro_f1": 0.6626301443317395,
+        "confusion_matrix": {
+          "tp": 166,
+          "fp": 110,
+          "fn": 41,
+          "tn": 133
+        }
+      },
+      "decision_rates": {
+        "n": 450,
+        "attempt0_accept_rate": 0.3466666666666667,
+        "attempt0_correct_rate": 0.6533333333333333,
+        "attempt0_abstain_rate": 0.0,
+        "final_accept_rate": 0.38666666666666666,
+        "final_abstain_rate": 0.6133333333333333,
+        "correction_attempted_rate": 0.6533333333333333,
+        "correction_success_rate_among_attempted": 0.061224489795918366,
+        "max_attempts_reached_rate": 0.6133333333333333
+      },
+      "correction_outcome_categories": {
+        "hallucinated_still_flagged": 166,
+        "hallucinated_corrected_successfully": 2,
+        "not_hallucinated_degraded": 110,
+        "not_hallucinated_preserved": 133,
+        "hallucinated_missed": 39
+      },
+      "unnecessary_correction_count": 126,
+      "n_failed_responses": 0,
+      "note": null
+    },
+    "llama-2-70b-chat": {
+      "n": 450,
+      "hallucination_prevalence_gold": 0.38,
+      "attempt0_detection_metrics": {
+        "n": 450,
+        "accuracy": 0.5888888888888889,
+        "hallucinated_precision": 0.47619047619047616,
+        "hallucinated_recall": 0.8187134502923976,
+        "hallucinated_f1": 0.6021505376344086,
+        "not_hallucinated_precision": 0.8012820512820513,
+        "not_hallucinated_recall": 0.44802867383512546,
+        "not_hallucinated_f1": 0.5747126436781609,
+        "macro_f1": 0.5884315906562847,
+        "confusion_matrix": {
+          "tp": 140,
+          "fp": 154,
+          "fn": 31,
+          "tn": 125
+        }
+      },
+      "final_outcome_metrics": {
+        "n": 450,
+        "accuracy": 0.6022222222222222,
+        "hallucinated_precision": 0.4855072463768116,
+        "hallucinated_recall": 0.783625730994152,
+        "hallucinated_f1": 0.5995525727069351,
+        "not_hallucinated_precision": 0.7873563218390804,
+        "not_hallucinated_recall": 0.4910394265232975,
+        "not_hallucinated_f1": 0.6048565121412803,
+        "macro_f1": 0.6022045424241077,
+        "confusion_matrix": {
+          "tp": 134,
+          "fp": 142,
+          "fn": 37,
+          "tn": 137
+        }
+      },
+      "decision_rates": {
+        "n": 450,
+        "attempt0_accept_rate": 0.3466666666666667,
+        "attempt0_correct_rate": 0.6533333333333333,
+        "attempt0_abstain_rate": 0.0,
+        "final_accept_rate": 0.38666666666666666,
+        "final_abstain_rate": 0.6133333333333333,
+        "correction_attempted_rate": 0.6533333333333333,
+        "correction_success_rate_among_attempted": 0.061224489795918366,
+        "max_attempts_reached_rate": 0.6133333333333333
+      },
+      "correction_outcome_categories": {
+        "hallucinated_corrected_successfully": 6,
+        "not_hallucinated_degraded": 142,
+        "hallucinated_still_flagged": 134,
+        "not_hallucinated_preserved": 137,
+        "hallucinated_missed": 31
+      },
+      "unnecessary_correction_count": 154,
+      "n_failed_responses": 0,
+      "note": null
+    },
+    "llama-2-7b-chat": {
+      "n": 450,
+      "hallucination_prevalence_gold": 0.5022222222222222,
+      "attempt0_detection_metrics": {
+        "n": 450,
+        "accuracy": 0.6088888888888889,
+        "hallucinated_precision": 0.5850340136054422,
+        "hallucinated_recall": 0.7610619469026548,
+        "hallucinated_f1": 0.6615384615384614,
+        "not_hallucinated_precision": 0.6538461538461539,
+        "not_hallucinated_recall": 0.45535714285714285,
+        "not_hallucinated_f1": 0.5368421052631579,
+        "macro_f1": 0.5991902834008096,
+        "confusion_matrix": {
+          "tp": 172,
+          "fp": 122,
+          "fn": 54,
+          "tn": 102
+        }
+      },
+      "final_outcome_metrics": {
+        "n": 450,
+        "accuracy": 0.6044444444444445,
+        "hallucinated_precision": 0.5869565217391305,
+        "hallucinated_recall": 0.7168141592920354,
+        "hallucinated_f1": 0.6454183266932272,
+        "not_hallucinated_precision": 0.632183908045977,
+        "not_hallucinated_recall": 0.49107142857142855,
+        "not_hallucinated_f1": 0.5527638190954773,
+        "macro_f1": 0.5990910728943523,
+        "confusion_matrix": {
+          "tp": 162,
+          "fp": 114,
+          "fn": 64,
+          "tn": 110
+        }
+      },
+      "decision_rates": {
+        "n": 450,
+        "attempt0_accept_rate": 0.3466666666666667,
+        "attempt0_correct_rate": 0.6533333333333333,
+        "attempt0_abstain_rate": 0.0,
+        "final_accept_rate": 0.38666666666666666,
+        "final_abstain_rate": 0.6133333333333333,
+        "correction_attempted_rate": 0.6533333333333333,
+        "correction_success_rate_among_attempted": 0.061224489795918366,
+        "max_attempts_reached_rate": 0.6133333333333333
+      },
+      "correction_outcome_categories": {
+        "not_hallucinated_preserved": 110,
+        "not_hallucinated_degraded": 114,
+        "hallucinated_still_flagged": 162,
+        "hallucinated_corrected_successfully": 10,
+        "hallucinated_missed": 54
+      },
+      "unnecessary_correction_count": 122,
+      "n_failed_responses": 0,
+      "note": null
+    },
+    "mistral-7B-instruct": {
+      "n": 450,
+      "hallucination_prevalence_gold": 0.5577777777777778,
+      "attempt0_detection_metrics": {
+        "n": 450,
+        "accuracy": 0.6688888888888889,
+        "hallucinated_precision": 0.673469387755102,
+        "hallucinated_recall": 0.7888446215139442,
+        "hallucinated_f1": 0.726605504587156,
+        "not_hallucinated_precision": 0.6602564102564102,
+        "not_hallucinated_recall": 0.5175879396984925,
+        "not_hallucinated_f1": 0.5802816901408451,
+        "macro_f1": 0.6534435973640005,
+        "confusion_matrix": {
+          "tp": 198,
+          "fp": 96,
+          "fn": 53,
+          "tn": 103
+        }
+      },
+      "final_outcome_metrics": {
+        "n": 450,
+        "accuracy": 0.6777777777777778,
+        "hallucinated_precision": 0.6920289855072463,
+        "hallucinated_recall": 0.7609561752988048,
+        "hallucinated_f1": 0.7248576850094877,
+        "not_hallucinated_precision": 0.6551724137931034,
+        "not_hallucinated_recall": 0.5728643216080402,
+        "not_hallucinated_f1": 0.611260053619303,
+        "macro_f1": 0.6680588693143954,
+        "confusion_matrix": {
+          "tp": 191,
+          "fp": 85,
+          "fn": 60,
+          "tn": 114
+        }
+      },
+      "decision_rates": {
+        "n": 450,
+        "attempt0_accept_rate": 0.3466666666666667,
+        "attempt0_correct_rate": 0.6533333333333333,
+        "attempt0_abstain_rate": 0.0,
+        "final_accept_rate": 0.38666666666666666,
+        "final_abstain_rate": 0.6133333333333333,
+        "correction_attempted_rate": 0.6533333333333333,
+        "correction_success_rate_among_attempted": 0.061224489795918366,
+        "max_attempts_reached_rate": 0.6133333333333333
+      },
+      "correction_outcome_categories": {
+        "hallucinated_corrected_successfully": 7,
+        "not_hallucinated_degraded": 85,
+        "hallucinated_still_flagged": 191,
+        "not_hallucinated_preserved": 114,
+        "hallucinated_missed": 53
+      },
+      "unnecessary_correction_count": 96,
+      "n_failed_responses": 0,
+      "note": null
+    }
+  },
+  "retrieval_diagnostics": {
+    "n_zero_evidence_retrieved": 0,
+    "mean_evidence_count": 5,
+    "note": "ClaimGuard's retrieval corpus (Step 13) is built exclusively from FEVER's Wikipedia evidence pages. RAGTruth's actual source documents (news articles, business listings, QA passages) are NOT in this corpus. Retrieval is therefore expected to surface topically-unrelated Wikipedia sentences rather than the response's true source material for most RAGTruth responses - this is a known architectural mismatch, not a retrieval bug, and is the primary lens for interpreting detection quality below."
+  },
+  "span_level_evaluation": {
+    "computed": false,
+    "reason": "ClaimGuard's decision policy (Step 16) operates at the whole-candidate-answer level - it has no mechanism to predict WHICH substring of an answer is unsupported. Computing span precision/recall/F1 would require inventing an arbitrary span-alignment heuristic (e.g. attributing the verifier's single answer-level score to an arbitrary substring) that ClaimGuard's actual architecture does not support. Reported as a limitation, not fabricated, per Step 19 Section 8's explicit instruction."
+  },
+  "reproducibility_check": {
+    "subset_size": 10,
+    "identical_across_two_reruns": true
+  },
+  "leakage_isolation_audit": {
+    "ragtruth_test_used_in_training": false,
+    "ragtruth_test_used_in_tuning": false,
+    "ragtruth_test_used_to_choose_thresholds": false,
+    "truthfulqa_touched": false,
+    "gold_ragtruth_labels_spans_entered_inference": false,
+    "fever_gold_evidence_supplied_at_inference": false,
+    "test_labels_influenced_generation": false,
+    "test_labels_influenced_correction": false,
+    "note": "run_correction_loop() and its Step 19 caller receive only `prompt`/`response_text` - gold_has_hallucination/labels are read only by this analysis script's own scoring functions, after all inference completed. See tests/test_ragtruth_evaluation.py's structural guard (claimguard.evaluation imports no inference-path module) and its mock-based test confirming gold fields never appear in run_correction_loop's call args."
+  },
+  "development_vs_final": {
+    "note": "These are FINAL TEST RESULTS on the reserved RAGTruth test split (2,700 responses, 450 source items, source-level train/test separation - see manifest). No development/validation split of RAGTruth test was used; all thresholds, prompts, and configuration were frozen BEFORE this evaluation ran and are not altered based on these results (Step 19 Section 21 - no post-hoc tuning)."
+  }
+}

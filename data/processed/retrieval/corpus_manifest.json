@@ -1,0 +1,41 @@
+{
+  "stage": "corpus",
+  "corpus_construction": {
+    "corpus_version": "fever_evidence_pages_v1",
+    "requested_evidence_page_ids": 12549,
+    "resolved_unique_pages": 12549,
+    "missing_pages": [],
+    "missing_page_count": 0,
+    "empty_text_sentences_skipped": 50901,
+    "total_corpus_records": 109350,
+    "source_wiki_pages_index": "<PROJECT_ROOT>/data/processed/fever/wiki_pages_index.sqlite",
+    "source_fever_split": "train",
+    "source_fever_labels": [
+      "REFUTES",
+      "SUPPORTS"
+    ]
+  },
+  "validation_issues": 0,
+  "embedding": {
+    "model_name": "BAAI/bge-large-en-v1.5",
+    "requested_dtype": "float16",
+    "actual_dtype": "torch.float16",
+    "requested_device": "cuda",
+    "actual_device": "cuda:0",
+    "embedding_dim": 1024,
+    "batch_size": 32,
+    "normalize_embeddings": true,
+    "max_seq_length": 512,
+    "n_params": 335141888,
+    "total_records": 109350,
+    "embedded_count": 109350,
+    "failed_count": 0,
+    "elapsed_seconds": 65.4971399307251,
+    "records_per_second": 1669.5385495558603,
+    "embeddings_shape": [
+      109350,
+      1024
+    ],
+    "all_finite": true
+  }
+}

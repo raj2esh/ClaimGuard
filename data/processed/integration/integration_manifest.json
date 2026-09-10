@@ -1,0 +1,49 @@
+{
+  "verifier_info": {
+    "checkpoint_dir": "<PROJECT_ROOT>/experiments/verifier_binary_final/final",
+    "id2label": {
+      "0": "entailment",
+      "1": "contradiction"
+    },
+    "num_labels": 2,
+    "n_params": 435063810,
+    "dtype": "torch.bfloat16",
+    "device": "cuda:0"
+  },
+  "reranker_info": {
+    "model_name": "BAAI/bge-reranker-large",
+    "requested_dtype": "float16",
+    "actual_dtype": "torch.float16",
+    "requested_device": "cuda",
+    "actual_device": "cuda:0",
+    "max_length": 512,
+    "batch_size": 16,
+    "n_params": 559891457,
+    "activation_fn": "Sigmoid",
+    "score_type": "probability_like_sigmoid",
+    "score_direction": "higher_is_more_relevant"
+  },
+  "pipeline_config": {
+    "retrieval_top_k": 20,
+    "rerank_top_n": 5,
+    "verifier_max_length": 256,
+    "entailment_threshold": 0.5
+  },
+  "evaluation_config": {
+    "seed": 42,
+    "sample_size": 2000,
+    "source": "fever_train",
+    "threshold_diagnostics": [
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9
+    ]
+  },
+  "python_version": "3.12.14",
+  "torch_version": "2.11.0+cu128",
+  "gpu_name": "NVIDIA RTX PRO 5000 Blackwell",
+  "index_vector_count": 109350,
+  "model_load_seconds": 10.684701204299927
+}

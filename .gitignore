@@ -1,0 +1,149 @@
+# ClaimGuard .gitignore
+# Goal: keep the repo a clean, minimal, research-quality source release.
+# Large generated artifacts (raw datasets, model weights, checkpoints,
+# retrieval indexes, embeddings, caches, logs) are intentionally excluded -
+# see ARTIFACTS.md for what is excluded and how to regenerate it.
+# Small, curated research result summaries ARE tracked - see the explicit
+# `!` exceptions below; do not blanket-ignore data/ or experiments/.
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# --- Virtual environments ---
+venv/
+.venv/
+env/
+ENV/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+
+# --- Secrets / credentials (never track) ---
+.env
+.env.*
+*.pem
+*.key
+credentials*
+secrets*
+
+# --- Model weights / checkpoints / training state (regenerate via scripts/) ---
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+checkpoints/
+weights/
+optimizer.pt
+scheduler.pt
+rng_state.pth
+training_args.bin
+
+# --- Hugging Face / model / pip caches ---
+.cache/
+hf_cache/
+transformers_cache/
+
+# --- Large retrieval artifacts ---
+*.faiss
+*.index
+*.npy
+*.npz
+*.sqlite
+*.sqlite3
+
+# --- Logs / temporary / runtime files ---
+*.log
+*.tmp
+*.bak
+logs/
+runs/
+outputs/
+wandb/
+mlruns/
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# =====================================================================
+# data/ - targeted exclusions (NOT a blanket ignore - small curated
+# result/manifest files below are explicitly tracked via `!` exceptions)
+# =====================================================================
+
+# Raw third-party datasets - never redistributed, see REPRODUCIBILITY.md
+# for acquisition instructions and licenses.
+data/raw/
+
+# FEVER Wikipedia corpus + its multi-GB generated SQLite index.
+data/processed/fever/
+
+# Verifier training/dev pool - large, fully reproducible from raw data +
+# scripts/build_verifier_pool.py.
+data/processed/verifier_pool/
+
+# Raw dataset samples extracted for inspection (not for redistribution).
+data/processed/*/sample/
+data/processed/integration/integration_examples.jsonl
+
+# Retrieval artifacts: keep only the small manifests/eval-result summaries,
+# exclude the corpus dump, embeddings, FAISS index, and index metadata.
+data/processed/retrieval/*
+!data/processed/retrieval/corpus_manifest.json
+!data/processed/retrieval/reranker_manifest.json
+!data/processed/retrieval/retrieval_eval_results.json
+!data/processed/retrieval/reranker_eval_results.json
+
+# Evaluation: keep the aggregated result/manifest/error-analysis summaries,
+# exclude the large per-response raw JSONL dumps.
+data/processed/evaluation/*/*_response_results.jsonl
+
+# --- data/processed/final/ (Step 22 deliverables) is small (~536K) and
+# fully tracked - no exclusion needed.
+
+# =====================================================================
+# experiments/ - targeted exclusions (NOT a blanket ignore)
+# =====================================================================
+
+# Superseded baseline / smoke-test checkpoint trees - not the final
+# reported model, large, fully reproducible.
+experiments/verifier_baseline/
+experiments/verifier_baseline_smoke_test/
+experiments/verifier_binary_final_smoke_test/
+
+# The final verifier's intermediate training checkpoints (weights +
+# optimizer/scheduler state) - only the `final/` checkpoint's small
+# metadata is tracked (below).
+experiments/verifier_binary_final/checkpoint-*/
+
+# Inside experiments/verifier_binary_final/final/: keep only small
+# config/metric/reproducibility metadata, exclude the model weights and
+# tokenizer/training-state binaries.
+experiments/verifier_binary_final/final/*
+!experiments/verifier_binary_final/final/config.json
+!experiments/verifier_binary_final/final/binary_head_report.json
+!experiments/verifier_binary_final/final/dataset_manifest_snapshot.json
+!experiments/verifier_binary_final/final/dataset_stats.json
+!experiments/verifier_binary_final/final/dev_metrics.json
+!experiments/verifier_binary_final/final/dev_metrics_by_source.json
+!experiments/verifier_binary_final/final/dev_metrics_overall_recomputed.json
+!experiments/verifier_binary_final/final/git_status_snapshot.txt
+!experiments/verifier_binary_final/final/reproducibility.json
+!experiments/verifier_binary_final/final/tokenizer_config.json
+!experiments/verifier_binary_final/final/training_config.yaml
+
+# experiments/{ablation,baseline,results}/ are empty scaffolding
+# (.gitkeep only) - nothing to exclude there.

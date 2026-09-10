@@ -1,0 +1,1033 @@
+{
+  "table1_dataset_statistics": {
+    "FEVER": {
+      "role": "verifier training (entailment/contradiction)",
+      "raw_train_claims": 145449,
+      "usable_records_resolved_premise": 109810,
+      "neutral_class_available": 0,
+      "license": "CC BY-SA 3.0 + GNU FDL"
+    },
+    "verifier_train_dev": {
+      "train_record_count": 152720,
+      "dev_record_count": 16890
+    },
+    "RAGTruth": {
+      "role": "primary end-to-end evaluation (held-out TEST split)",
+      "test_responses": 2700,
+      "hallucination_prevalence": 0.34925925925925927
+    },
+    "TruthfulQA": {
+      "role": "secondary evaluation-only (adversarial stress test, no split)",
+      "n_questions": 790,
+      "n_categories": 37
+    }
+  },
+  "table2_verifier_development": {
+    "model": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+    "n_params": 435063810,
+    "precision": "bf16",
+    "train_records": 152720,
+    "dev_records": 16890,
+    "dev_accuracy": 0.9619893428063944,
+    "dev_macro_f1": 0.9585086021667156,
+    "dev_weighted_f1": 0.9621458765228149,
+    "per_class_f1": {
+      "entailment": 0.9705261224864568,
+      "contradiction": 0.9464910818469745
+    },
+    "confusion_matrix": [
+      [
+        10570,
+        431
+      ],
+      [
+        211,
+        5678
+      ]
+    ],
+    "confusion_matrix_labels": [
+      "entailment",
+      "contradiction"
+    ],
+    "peak_gpu_memory_gb": 14.359752655029297
+  },
+  "table3_retrieval_reranking": {
+    "corpus_size_sentences": 109350,
+    "embedding_model": "BAAI/bge-large-en-v1.5",
+    "embedding_dim": 1024,
+    "faiss_only": {
+      "n_eval_claims": 2000,
+      "recall_at_1": 0.28,
+      "recall_at_5": 0.5685,
+      "recall_at_10": 0.662,
+      "recall_at_20": 0.7325,
+      "hits_at_k": {
+        "1": 560,
+        "5": 1137,
+        "10": 1324,
+        "20": 1465
+      }
+    },
+    "faiss_plus_reranker": {
+      "n_eval_claims": 2000,
+      "recall_at_1": 0.2445,
+      "recall_at_5": 0.5905,
+      "recall_at_10": 0.701,
+      "recall_at_20": 0.7325,
+      "hits_at_k": {
+        "1": 489,
+        "5": 1181,
+        "10": 1402,
+        "20": 1465
+      }
+    },
+    "integration_strategy_comparison": {
+      "faiss_top1_hit_rate": 0.28,
+      "reranker_top1_hit_rate": 0.2445,
+      "verifier_selected_hit_rate": 0.318
+    },
+    "integration_verifier_classification": {
+      "positive_class": "entailment",
+      "accuracy": 0.886,
+      "precision_entailment": 0.8762581409117821,
+      "recall_entailment": 0.9873248832555037,
+      "f1_entailment": 0.9284818067754078,
+      "precision_contradiction": 0.9389067524115756,
+      "recall_contradiction": 0.5828343313373253,
+      "f1_contradiction": 0.7192118226600985,
+      "confusion_matrix": [
+        [
+          1480,
+          19
+        ],
+        [
+          209,
+          292
+        ]
+      ],
+      "confusion_matrix_labels": [
+        "entailment",
+        "contradiction"
+      ],
+      "note": "Uses pipeline-SELECTED (not gold) evidence - not comparable to Step 12's gold-premise dev metrics."
+    },
+    "integration_latency_ms": {
+      "embed_faiss_avg_ms": 29.746552348136902,
+      "embed_faiss_p50_ms": 25.400161743164062,
+      "embed_faiss_p95_ms": 32.439470291137695,
+      "reranker_avg_ms": 26.429969906806946,
+      "reranker_p50_ms": 23.570537567138672,
+      "reranker_p95_ms": 41.02206230163574,
+      "verifier_avg_ms": 102.94088554382324,
+      "verifier_p50_ms": 98.37079048156738,
+      "verifier_p95_ms": 128.72958183288574,
+      "end_to_end_avg_ms": 159.1174077987671,
+      "end_to_end_p50_ms": 147.62139320373535,
+      "end_to_end_p95_ms": 199.27024841308594,
+      "n_queries_measured": 2000,
+      "verifier_candidates_per_query": 5,
+      "model_load_seconds_one_time": 10.684701204299927
+    }
+  },
+  "table4_end_to_end_ragtruth": {
+    "n_responses": 2700,
+    "hallucination_prevalence": 0.34925925925925927,
+    "attempt0_accuracy": 0.5588888888888889,
+    "attempt0_macro_f1": 0.5588859239245916,
+    "final_accuracy": 0.5803703703703704,
+    "final_macro_f1": 0.5797823538809245,
+    "majority_class_baseline": 0.6507407407407407,
+    "decision_rates": {
+      "n": 2700,
+      "attempt0_accept_rate": 0.3466666666666667,
+      "attempt0_correct_rate": 0.6533333333333333,
+      "attempt0_abstain_rate": 0.0,
+      "final_accept_rate": 0.38666666666666666,
+      "final_abstain_rate": 0.6133333333333333,
+      "correction_attempted_rate": 0.6533333333333333,
+      "correction_success_rate_among_attempted": 0.061224489795918366,
+      "max_attempts_reached_rate": 0.6133333333333333
+    },
+    "correction_outcome_categories": {
+      "hallucinated_still_flagged": 733,
+      "not_hallucinated_preserved": 834,
+      "hallucinated_corrected_successfully": 25,
+      "not_hallucinated_degraded": 923,
+      "hallucinated_missed": 185
+    },
+    "task_type_breakdown": {
+      "Data2txt": {
+        "n": 900,
+        "hallucination_prevalence_gold": 0.6433333333333333,
+        "attempt0_detection_metrics": {
+          "n": 900,
+          "accuracy": 0.6366666666666667,
+          "hallucinated_precision": 0.6418918918918919,
+          "hallucinated_recall": 0.9844559585492227,
+          "hallucinated_f1": 0.7770961145194274,
+          "not_hallucinated_precision": 0.25,
+          "not_hallucinated_recall": 0.009345794392523364,
+          "not_hallucinated_f1": 0.018018018018018018,
+          "macro_f1": 0.3975570662687227,
+          "confusion_matrix": {
+            "tp": 570,
+            "fp": 318,
+            "fn": 9,
+            "tn": 3
+          }
+        },
+        "final_outcome_metrics": {
+          "n": 900,
+          "accuracy": 0.6366666666666667,
+          "hallucinated_precision": 0.6428571428571429,
+          "hallucinated_recall": 0.9792746113989638,
+          "hallucinated_f1": 0.7761806981519507,
+          "not_hallucinated_precision": 0.3333333333333333,
+          "not_hallucinated_recall": 0.018691588785046728,
+          "not_hallucinated_f1": 0.03539823008849557,
+          "macro_f1": 0.4057894641202231,
+          "confusion_matrix": {
+            "tp": 567,
+            "fp": 315,
+            "fn": 12,
+            "tn": 6
+          }
+        },
+        "decision_rates": {
+          "n": 900,
+          "attempt0_accept_rate": 0.013333333333333334,
+          "attempt0_correct_rate": 0.9866666666666667,
+          "attempt0_abstain_rate": 0.0,
+          "final_accept_rate": 0.02,
+          "final_abstain_rate": 0.98,
+          "correction_attempted_rate": 0.9866666666666667,
+          "correction_success_rate_among_attempted": 0.006756756756756757,
+          "max_attempts_reached_rate": 0.98
+        },
+        "correction_outcome_categories": {
+          "not_hallucinated_preserved": 6,
+          "hallucinated_corrected_successfully": 3,
+          "not_hallucinated_degraded": 315,
+          "hallucinated_still_flagged": 567,
+          "hallucinated_missed": 9
+        },
+        "unnecessary_correction_count": 318,
+        "n_failed_responses": 0,
+        "note": null
+      },
+      "QA": {
+        "n": 900,
+        "hallucination_prevalence_gold": 0.17777777777777778,
+        "attempt0_detection_metrics": {
+          "n": 900,
+          "accuracy": 0.6666666666666666,
+          "hallucinated_precision": 0.17592592592592593,
+          "hallucinated_recall": 0.2375,
+          "hallucinated_f1": 0.2021276595744681,
+          "not_hallucinated_precision": 0.8216374269005848,
+          "not_hallucinated_recall": 0.7594594594594595,
+          "not_hallucinated_f1": 0.7893258426966292,
+          "macro_f1": 0.49572675113554865,
+          "confusion_matrix": {
+            "tp": 38,
+            "fp": 178,
+            "fn": 122,
+            "tn": 562
+          }
+        },
+        "final_outcome_metrics": {
+          "n": 900,
+          "accuracy": 0.6933333333333334,
+          "hallucinated_precision": 0.1881720430107527,
+          "hallucinated_recall": 0.21875,
+          "hallucinated_f1": 0.20231213872832368,
+          "not_hallucinated_precision": 0.8249299719887955,
+          "not_hallucinated_recall": 0.7959459459459459,
+          "not_hallucinated_f1": 0.810178817056396,
+          "macro_f1": 0.5062454778923599,
+          "confusion_matrix": {
+            "tp": 35,
+            "fp": 151,
+            "fn": 125,
+            "tn": 589
+          }
+        },
+        "decision_rates": {
+          "n": 900,
+          "attempt0_accept_rate": 0.76,
+          "attempt0_correct_rate": 0.24,
+          "attempt0_abstain_rate": 0.0,
+          "final_accept_rate": 0.7933333333333333,
+          "final_abstain_rate": 0.20666666666666667,
+          "correction_attempted_rate": 0.24,
+          "correction_success_rate_among_attempted": 0.1388888888888889,
+          "max_attempts_reached_rate": 0.20666666666666667
+        },
+        "correction_outcome_categories": {
+          "not_hallucinated_preserved": 589,
+          "hallucinated_missed": 122,
+          "not_hallucinated_degraded": 151,
+          "hallucinated_still_flagged": 35,
+          "hallucinated_corrected_successfully": 3
+        },
+        "unnecessary_correction_count": 178,
+        "n_failed_responses": 0,
+        "note": null
+      },
+      "Summary": {
+        "n": 900,
+        "hallucination_prevalence_gold": 0.22666666666666666,
+        "attempt0_detection_metrics": {
+          "n": 900,
+          "accuracy": 0.37333333333333335,
+          "hallucinated_precision": 0.22727272727272727,
+          "hallucinated_recall": 0.7352941176470589,
+          "hallucinated_f1": 0.3472222222222222,
+          "not_hallucinated_precision": 0.775,
+          "not_hallucinated_recall": 0.2672413793103448,
+          "not_hallucinated_f1": 0.3974358974358974,
+          "macro_f1": 0.37232905982905984,
+          "confusion_matrix": {
+            "tp": 150,
+            "fp": 510,
+            "fn": 54,
+            "tn": 186
+          }
+        },
+        "final_outcome_metrics": {
+          "n": 900,
+          "accuracy": 0.4111111111111111,
+          "hallucinated_precision": 0.2227891156462585,
+          "hallucinated_recall": 0.6421568627450981,
+          "hallucinated_f1": 0.33080808080808083,
+          "not_hallucinated_precision": 0.7660256410256411,
+          "not_hallucinated_recall": 0.34339080459770116,
+          "not_hallucinated_f1": 0.4742063492063492,
+          "macro_f1": 0.402507215007215,
+          "confusion_matrix": {
+            "tp": 131,
+            "fp": 457,
+            "fn": 73,
+            "tn": 239
+          }
+        },
+        "decision_rates": {
+          "n": 900,
+          "attempt0_accept_rate": 0.26666666666666666,
+          "attempt0_correct_rate": 0.7333333333333333,
+          "attempt0_abstain_rate": 0.0,
+          "final_accept_rate": 0.3466666666666667,
+          "final_abstain_rate": 0.6533333333333333,
+          "correction_attempted_rate": 0.7333333333333333,
+          "correction_success_rate_among_attempted": 0.10909090909090909,
+          "max_attempts_reached_rate": 0.6533333333333333
+        },
+        "correction_outcome_categories": {
+          "hallucinated_still_flagged": 131,
+          "not_hallucinated_degraded": 457,
+          "not_hallucinated_preserved": 239,
+          "hallucinated_corrected_successfully": 19,
+          "hallucinated_missed": 54
+        },
+        "unnecessary_correction_count": 510,
+        "n_failed_responses": 0,
+        "note": null
+      }
+    },
+    "source_model_breakdown": {
+      "gpt-3.5-turbo-0613": {
+        "n": 450,
+        "hallucination_prevalence_gold": 0.10222222222222223,
+        "attempt0_detection_metrics": {
+          "n": 450,
+          "accuracy": 0.4222222222222222,
+          "hallucinated_precision": 0.1360544217687075,
+          "hallucinated_recall": 0.8695652173913043,
+          "hallucinated_f1": 0.23529411764705885,
+          "not_hallucinated_precision": 0.9615384615384616,
+          "not_hallucinated_recall": 0.3712871287128713,
+          "not_hallucinated_f1": 0.5357142857142857,
+          "macro_f1": 0.3855042016806723,
+          "confusion_matrix": {
+            "tp": 40,
+            "fp": 254,
+            "fn": 6,
+            "tn": 150
+          }
+        },
+        "final_outcome_metrics": {
+          "n": 450,
+          "accuracy": 0.4622222222222222,
+          "hallucinated_precision": 0.14492753623188406,
+          "hallucinated_recall": 0.8695652173913043,
+          "hallucinated_f1": 0.24844720496894407,
+          "not_hallucinated_precision": 0.9655172413793104,
+          "not_hallucinated_recall": 0.4158415841584158,
+          "not_hallucinated_f1": 0.5813148788927336,
+          "macro_f1": 0.41488104193083886,
+          "confusion_matrix": {
+            "tp": 40,
+            "fp": 236,
+            "fn": 6,
+            "tn": 168
+          }
+        },
+        "decision_rates": {
+          "n": 450,
+          "attempt0_accept_rate": 0.3466666666666667,
+          "attempt0_correct_rate": 0.6533333333333333,
+          "attempt0_abstain_rate": 0.0,
+          "final_accept_rate": 0.38666666666666666,
+          "final_abstain_rate": 0.6133333333333333,
+          "correction_attempted_rate": 0.6533333333333333,
+          "correction_success_rate_among_attempted": 0.061224489795918366,
+          "max_attempts_reached_rate": 0.6133333333333333
+        },
+        "correction_outcome_categories": {
+          "not_hallucinated_preserved": 168,
+          "not_hallucinated_degraded": 236,
+          "hallucinated_still_flagged": 40,
+          "hallucinated_missed": 6
+        },
+        "unnecessary_correction_count": 254,
+        "n_failed_responses": 0,
+        "note": null
+      },
+      "gpt-4-0613": {
+        "n": 450,
+        "hallucination_prevalence_gold": 0.09333333333333334,
+        "attempt0_detection_metrics": {
+          "n": 450,
+          "accuracy": 0.4311111111111111,
+          "hallucinated_precision": 0.1360544217687075,
+          "hallucinated_recall": 0.9523809523809523,
+          "hallucinated_f1": 0.23809523809523814,
+          "not_hallucinated_precision": 0.9871794871794872,
+          "not_hallucinated_recall": 0.37745098039215685,
+          "not_hallucinated_f1": 0.5460992907801419,
+          "macro_f1": 0.39209726443769,
+          "confusion_matrix": {
+            "tp": 40,
+            "fp": 254,
+            "fn": 2,
+            "tn": 154
+          }
+        },
+        "final_outcome_metrics": {
+          "n": 450,
+          "accuracy": 0.4711111111111111,
+          "hallucinated_precision": 0.14492753623188406,
+          "hallucinated_recall": 0.9523809523809523,
+          "hallucinated_f1": 0.25157232704402516,
+          "not_hallucinated_precision": 0.9885057471264368,
+          "not_hallucinated_recall": 0.4215686274509804,
+          "not_hallucinated_f1": 0.5910652920962199,
+          "macro_f1": 0.4213188095701226,
+          "confusion_matrix": {
+            "tp": 40,
+            "fp": 236,
+            "fn": 2,
+            "tn": 172
+          }
+        },
+        "decision_rates": {
+          "n": 450,
+          "attempt0_accept_rate": 0.3466666666666667,
+          "attempt0_correct_rate": 0.6533333333333333,
+          "attempt0_abstain_rate": 0.0,
+          "final_accept_rate": 0.38666666666666666,
+          "final_abstain_rate": 0.6133333333333333,
+          "correction_attempted_rate": 0.6533333333333333,
+          "correction_success_rate_among_attempted": 0.061224489795918366,
+          "max_attempts_reached_rate": 0.6133333333333333
+        },
+        "correction_outcome_categories": {
+          "not_hallucinated_preserved": 172,
+          "not_hallucinated_degraded": 236,
+          "hallucinated_still_flagged": 40,
+          "hallucinated_missed": 2
+        },
+        "unnecessary_correction_count": 254,
+        "n_failed_responses": 0,
+        "note": null
+      },
+      "llama-2-13b-chat": {
+        "n": 450,
+        "hallucination_prevalence_gold": 0.46,
+        "attempt0_detection_metrics": {
+          "n": 450,
+          "accuracy": 0.6333333333333333,
+          "hallucinated_precision": 0.5714285714285714,
+          "hallucinated_recall": 0.8115942028985508,
+          "hallucinated_f1": 0.6706586826347305,
+          "not_hallucinated_precision": 0.75,
+          "not_hallucinated_recall": 0.48148148148148145,
+          "not_hallucinated_f1": 0.5864661654135339,
+          "macro_f1": 0.6285624240241322,
+          "confusion_matrix": {
+            "tp": 168,
+            "fp": 126,
+            "fn": 39,
+            "tn": 117
+          }
+        },
+        "final_outcome_metrics": {
+          "n": 450,
+          "accuracy": 0.6644444444444444,
+          "hallucinated_precision": 0.6014492753623188,
+          "hallucinated_recall": 0.8019323671497585,
+          "hallucinated_f1": 0.6873706004140787,
+          "not_hallucinated_precision": 0.764367816091954,
+          "not_hallucinated_recall": 0.5473251028806584,
+          "not_hallucinated_f1": 0.6378896882494004,
+          "macro_f1": 0.6626301443317395,
+          "confusion_matrix": {
+            "tp": 166,
+            "fp": 110,
+            "fn": 41,
+            "tn": 133
+          }
+        },
+        "decision_rates": {
+          "n": 450,
+          "attempt0_accept_rate": 0.3466666666666667,
+          "attempt0_correct_rate": 0.6533333333333333,
+          "attempt0_abstain_rate": 0.0,
+          "final_accept_rate": 0.38666666666666666,
+          "final_abstain_rate": 0.6133333333333333,
+          "correction_attempted_rate": 0.6533333333333333,
+          "correction_success_rate_among_attempted": 0.061224489795918366,
+          "max_attempts_reached_rate": 0.6133333333333333
+        },
+        "correction_outcome_categories": {
+          "hallucinated_still_flagged": 166,
+          "hallucinated_corrected_successfully": 2,
+          "not_hallucinated_degraded": 110,
+          "not_hallucinated_preserved": 133,
+          "hallucinated_missed": 39
+        },
+        "unnecessary_correction_count": 126,
+        "n_failed_responses": 0,
+        "note": null
+      },
+      "llama-2-70b-chat": {
+        "n": 450,
+        "hallucination_prevalence_gold": 0.38,
+        "attempt0_detection_metrics": {
+          "n": 450,
+          "accuracy": 0.5888888888888889,
+          "hallucinated_precision": 0.47619047619047616,
+          "hallucinated_recall": 0.8187134502923976,
+          "hallucinated_f1": 0.6021505376344086,
+          "not_hallucinated_precision": 0.8012820512820513,
+          "not_hallucinated_recall": 0.44802867383512546,
+          "not_hallucinated_f1": 0.5747126436781609,
+          "macro_f1": 0.5884315906562847,
+          "confusion_matrix": {
+            "tp": 140,
+            "fp": 154,
+            "fn": 31,
+            "tn": 125
+          }
+        },
+        "final_outcome_metrics": {
+          "n": 450,
+          "accuracy": 0.6022222222222222,
+          "hallucinated_precision": 0.4855072463768116,
+          "hallucinated_recall": 0.783625730994152,
+          "hallucinated_f1": 0.5995525727069351,
+          "not_hallucinated_precision": 0.7873563218390804,
+          "not_hallucinated_recall": 0.4910394265232975,
+          "not_hallucinated_f1": 0.6048565121412803,
+          "macro_f1": 0.6022045424241077,
+          "confusion_matrix": {
+            "tp": 134,
+            "fp": 142,
+            "fn": 37,
+            "tn": 137
+          }
+        },
+        "decision_rates": {
+          "n": 450,
+          "attempt0_accept_rate": 0.3466666666666667,
+          "attempt0_correct_rate": 0.6533333333333333,
+          "attempt0_abstain_rate": 0.0,
+          "final_accept_rate": 0.38666666666666666,
+          "final_abstain_rate": 0.6133333333333333,
+          "correction_attempted_rate": 0.6533333333333333,
+          "correction_success_rate_among_attempted": 0.061224489795918366,
+          "max_attempts_reached_rate": 0.6133333333333333
+        },
+        "correction_outcome_categories": {
+          "hallucinated_corrected_successfully": 6,
+          "not_hallucinated_degraded": 142,
+          "hallucinated_still_flagged": 134,
+          "not_hallucinated_preserved": 137,
+          "hallucinated_missed": 31
+        },
+        "unnecessary_correction_count": 154,
+        "n_failed_responses": 0,
+        "note": null
+      },
+      "llama-2-7b-chat": {
+        "n": 450,
+        "hallucination_prevalence_gold": 0.5022222222222222,
+        "attempt0_detection_metrics": {
+          "n": 450,
+          "accuracy": 0.6088888888888889,
+          "hallucinated_precision": 0.5850340136054422,
+          "hallucinated_recall": 0.7610619469026548,
+          "hallucinated_f1": 0.6615384615384614,
+          "not_hallucinated_precision": 0.6538461538461539,
+          "not_hallucinated_recall": 0.45535714285714285,
+          "not_hallucinated_f1": 0.5368421052631579,
+          "macro_f1": 0.5991902834008096,
+          "confusion_matrix": {
+            "tp": 172,
+            "fp": 122,
+            "fn": 54,
+            "tn": 102
+          }
+        },
+        "final_outcome_metrics": {
+          "n": 450,
+          "accuracy": 0.6044444444444445,
+          "hallucinated_precision": 0.5869565217391305,
+          "hallucinated_recall": 0.7168141592920354,
+          "hallucinated_f1": 0.6454183266932272,
+          "not_hallucinated_precision": 0.632183908045977,
+          "not_hallucinated_recall": 0.49107142857142855,
+          "not_hallucinated_f1": 0.5527638190954773,
+          "macro_f1": 0.5990910728943523,
+          "confusion_matrix": {
+            "tp": 162,
+            "fp": 114,
+            "fn": 64,
+            "tn": 110
+          }
+        },
+        "decision_rates": {
+          "n": 450,
+          "attempt0_accept_rate": 0.3466666666666667,
+          "attempt0_correct_rate": 0.6533333333333333,
+          "attempt0_abstain_rate": 0.0,
+          "final_accept_rate": 0.38666666666666666,
+          "final_abstain_rate": 0.6133333333333333,
+          "correction_attempted_rate": 0.6533333333333333,
+          "correction_success_rate_among_attempted": 0.061224489795918366,
+          "max_attempts_reached_rate": 0.6133333333333333
+        },
+        "correction_outcome_categories": {
+          "not_hallucinated_preserved": 110,
+          "not_hallucinated_degraded": 114,
+          "hallucinated_still_flagged": 162,
+          "hallucinated_corrected_successfully": 10,
+          "hallucinated_missed": 54
+        },
+        "unnecessary_correction_count": 122,
+        "n_failed_responses": 0,
+        "note": null
+      },
+      "mistral-7B-instruct": {
+        "n": 450,
+        "hallucination_prevalence_gold": 0.5577777777777778,
+        "attempt0_detection_metrics": {
+          "n": 450,
+          "accuracy": 0.6688888888888889,
+          "hallucinated_precision": 0.673469387755102,
+          "hallucinated_recall": 0.7888446215139442,
+          "hallucinated_f1": 0.726605504587156,
+          "not_hallucinated_precision": 0.6602564102564102,
+          "not_hallucinated_recall": 0.5175879396984925,
+          "not_hallucinated_f1": 0.5802816901408451,
+          "macro_f1": 0.6534435973640005,
+          "confusion_matrix": {
+            "tp": 198,
+            "fp": 96,
+            "fn": 53,
+            "tn": 103
+          }
+        },
+        "final_outcome_metrics": {
+          "n": 450,
+          "accuracy": 0.6777777777777778,
+          "hallucinated_precision": 0.6920289855072463,
+          "hallucinated_recall": 0.7609561752988048,
+          "hallucinated_f1": 0.7248576850094877,
+          "not_hallucinated_precision": 0.6551724137931034,
+          "not_hallucinated_recall": 0.5728643216080402,
+          "not_hallucinated_f1": 0.611260053619303,
+          "macro_f1": 0.6680588693143954,
+          "confusion_matrix": {
+            "tp": 191,
+            "fp": 85,
+            "fn": 60,
+            "tn": 114
+          }
+        },
+        "decision_rates": {
+          "n": 450,
+          "attempt0_accept_rate": 0.3466666666666667,
+          "attempt0_correct_rate": 0.6533333333333333,
+          "attempt0_abstain_rate": 0.0,
+          "final_accept_rate": 0.38666666666666666,
+          "final_abstain_rate": 0.6133333333333333,
+          "correction_attempted_rate": 0.6533333333333333,
+          "correction_success_rate_among_attempted": 0.061224489795918366,
+          "max_attempts_reached_rate": 0.6133333333333333
+        },
+        "correction_outcome_categories": {
+          "hallucinated_corrected_successfully": 7,
+          "not_hallucinated_degraded": 85,
+          "hallucinated_still_flagged": 191,
+          "not_hallucinated_preserved": 114,
+          "hallucinated_missed": 53
+        },
+        "unnecessary_correction_count": 96,
+        "n_failed_responses": 0,
+        "note": null
+      }
+    },
+    "retrieval_diagnostics": {
+      "n_zero_evidence_retrieved": 0,
+      "mean_evidence_count": 5,
+      "note": "ClaimGuard's retrieval corpus (Step 13) is built exclusively from FEVER's Wikipedia evidence pages. RAGTruth's actual source documents (news articles, business listings, QA passages) are NOT in this corpus. Retrieval is therefore expected to surface topically-unrelated Wikipedia sentences rather than the response's true source material for most RAGTruth responses - this is a known architectural mismatch, not a retrieval bug, and is the primary lens for interpreting detection quality below."
+    },
+    "latency_by_condition": {
+      "B_generated": {
+        "mean_seconds": 12.564617388954868,
+        "median_seconds": 12.039194583892822,
+        "p95_seconds": 23.97891068458557,
+        "min_seconds": 0.3504152297973633,
+        "max_seconds": 28.100959539413452,
+        "total_seconds": 33924.46695017815
+      },
+      "C_verify_only": {
+        "mean_seconds": 0.255083488534998,
+        "median_seconds": 0.2590048313140869,
+        "p95_seconds": 0.30271244049072266,
+        "min_seconds": 0.15311765670776367,
+        "max_seconds": 0.3210604190826416,
+        "total_seconds": 688.7254190444946
+      },
+      "D_original_full_loop": {
+        "mean_seconds": 7.5405223338692275,
+        "median_seconds": 8.1460040807724,
+        "p95_seconds": 17.974297285079956,
+        "min_seconds": 0.15116405487060547,
+        "max_seconds": 19.150790214538574,
+        "total_seconds": 20359.410301446915
+      }
+    }
+  },
+  "table5_truthfulqa": {
+    "n_questions": 790,
+    "n_categories": 37,
+    "mc_scores": {
+      "mc1_accuracy": 0.34050632911392403,
+      "mc1_n": 790,
+      "mc2_accuracy": 0.5505488308164534,
+      "mc2_n": 790,
+      "mc0_accuracy": 0.4417721518987342,
+      "mc0_n": 790
+    },
+    "free_form_decision_rates": {
+      "n": 790,
+      "attempt0_accept_rate": 0.8,
+      "attempt0_correct_rate": 0.2,
+      "attempt0_abstain_rate": 0.0,
+      "final_accept_rate": 0.9531645569620253,
+      "final_abstain_rate": 0.04683544303797468,
+      "correction_attempted_rate": 0.2,
+      "correction_success_rate_among_attempted": 0.7658227848101266,
+      "max_attempts_reached_rate": 0.04683544303797468
+    },
+    "free_form_latency": {
+      "mean_seconds": 6.03128173411647,
+      "median_seconds": 5.860981822013855,
+      "p95_seconds": 9.058263063430786,
+      "min_seconds": 0.21756958961486816,
+      "max_seconds": 26.825133562088013,
+      "total_seconds": 4764.712569952011
+    },
+    "retrieval_diagnostics": {
+      "n_zero_evidence_retrieved": 0,
+      "mean_evidence_count": 5,
+      "note": "As in Step 19, the retrieval corpus is exactly the frozen FEVER-Wikipedia corpus (unchanged, not augmented with TruthfulQA sources or any external content). TruthfulQA's 37 categories span topics (law, misconceptions, fiction, proverbs, etc.) with no guarantee of FEVER-Wikipedia coverage. Successful (non-zero) retrieval is NOT interpreted as proof of relevant evidence - see Step 19's established corpus-mismatch finding, which this evaluation does not re-litigate or re-verify claim by claim."
+    },
+    "note": "MC1/MC2/MC0 measure Qwen3-8B's OWN parametric calibration on TruthfulQA - they do not exercise retrieval, reranking, verification, or correction at all, so they say nothing about ClaimGuard's verification/correction layer specifically. The free-form pipeline track exercises the full ClaimGuard system but reports PROCESS behavior (decision rates, retrieval diagnostics, latency) only, not a truthfulness accuracy number - no approved automatic judge for free-form TruthfulQA truthfulness exists in this project (see claimguard.evaluation.truthfulqa_eval module docstring)."
+  },
+  "table6_controlled_ablations": {
+    "A_reranked": {
+      "n": 300,
+      "accuracy": 0.5866666666666667,
+      "hallucinated_precision": 0.4838709677419355,
+      "hallucinated_recall": 0.8974358974358975,
+      "hallucinated_f1": 0.62874251497006,
+      "not_hallucinated_precision": 0.8554216867469879,
+      "not_hallucinated_recall": 0.3879781420765027,
+      "not_hallucinated_f1": 0.5338345864661653,
+      "macro_f1": 0.5812885507181127,
+      "confusion_matrix": {
+        "tp": 105,
+        "fp": 112,
+        "fn": 12,
+        "tn": 71
+      }
+    },
+    "B_no_reranker": {
+      "n": 300,
+      "accuracy": 0.5866666666666667,
+      "hallucinated_precision": 0.4838709677419355,
+      "hallucinated_recall": 0.8974358974358975,
+      "hallucinated_f1": 0.62874251497006,
+      "not_hallucinated_precision": 0.8554216867469879,
+      "not_hallucinated_recall": 0.3879781420765027,
+      "not_hallucinated_f1": 0.5338345864661653,
+      "macro_f1": 0.5812885507181127,
+      "confusion_matrix": {
+        "tp": 105,
+        "fp": 112,
+        "fn": 12,
+        "tn": 71
+      }
+    },
+    "C_faiss_top1": {
+      "n": 300,
+      "accuracy": 0.51,
+      "hallucinated_precision": 0.43902439024390244,
+      "hallucinated_recall": 0.9230769230769231,
+      "hallucinated_f1": 0.5950413223140497,
+      "not_hallucinated_precision": 0.8333333333333334,
+      "not_hallucinated_recall": 0.2459016393442623,
+      "not_hallucinated_f1": 0.379746835443038,
+      "macro_f1": 0.48739407887854386,
+      "confusion_matrix": {
+        "tp": 108,
+        "fp": 138,
+        "fn": 9,
+        "tn": 45
+      }
+    },
+    "D_no_correction_REUSED": {
+      "n": 2700,
+      "accuracy": 0.5588888888888889,
+      "hallucinated_precision": 0.42970521541950113,
+      "hallucinated_recall": 0.8038176033934252,
+      "hallucinated_f1": 0.560029553010713,
+      "not_hallucinated_precision": 0.8023504273504274,
+      "not_hallucinated_recall": 0.42743312464428,
+      "not_hallucinated_f1": 0.5577422948384702,
+      "macro_f1": 0.5588859239245916,
+      "confusion_matrix": {
+        "tp": 758,
+        "fp": 1006,
+        "fn": 185,
+        "tn": 751
+      }
+    },
+    "E_verify_only_REUSED": {
+      "n": 2700,
+      "accuracy": 0.4874074074074074,
+      "hallucinated_precision": 0.3927007299270073,
+      "hallucinated_recall": 0.855779427359491,
+      "hallucinated_f1": 0.5383589059372915,
+      "not_hallucinated_precision": 0.7891472868217054,
+      "not_hallucinated_recall": 0.2896983494593056,
+      "not_hallucinated_f1": 0.4238134887593672,
+      "macro_f1": 0.48108619734832936,
+      "confusion_matrix": {
+        "tp": 807,
+        "fp": 1248,
+        "fn": 136,
+        "tn": 509
+      }
+    },
+    "evidence_movement": {
+      "A_vs_B_no_reranker": {
+        "n": 300,
+        "changed_rate": 1.0,
+        "n_changed": 300
+      },
+      "A_vs_C_faiss_top1": {
+        "n": 300,
+        "changed_rate": 1.0,
+        "n_changed": 300
+      }
+    },
+    "cross_validation_A_vs_step19": {
+      "n_compared": 300,
+      "matched": 300,
+      "mismatched": 0,
+      "match_rate": 1.0,
+      "mismatch_examples": [],
+      "note": "Condition A reruns the SAME architecture as Step 19's Condition B_generated on the same response_ids, using the same frozen deterministic configuration - a high match rate confirms determinism/consistency across independent runs, not a new finding."
+    }
+  },
+  "table7_failure_source_evidence": {
+    "verifier_overconfidence_full_2700": {
+      "accept_correct_negative": {
+        "n": 751,
+        "mean_confidence": 0.8332300726646749,
+        "median_confidence": 0.875361442565918
+      },
+      "accept_wrong_missed_hallucination": {
+        "n": 185,
+        "mean_confidence": 0.8205675031687762,
+        "median_confidence": 0.8723474144935608
+      },
+      "correct_wrong_false_positive": {
+        "n": 1006,
+        "mean_confidence": 0.9714716823982671,
+        "median_confidence": 0.9887906312942505
+      },
+      "correct_correct_positive": {
+        "n": 758,
+        "mean_confidence": 0.9818550289306288,
+        "median_confidence": 0.9913892149925232
+      }
+    },
+    "failure_source_separation_n300_subset": {
+      "1_retrieval_failure_zero_evidence": {
+        "count": 0,
+        "n": 300,
+        "examples": []
+      },
+      "2_retrieval_relevance_failure": {
+        "count": null,
+        "note": "NOT IDENTIFIABLE from the current evaluation - RAGTruth provides no per-evidence-item gold-relevance annotation analogous to FEVER's gold evidence sets, so whether retrieved-but-unflagged evidence is topically relevant cannot be determined without inventing a semantic relevance metric, which Step 21 instructions explicitly forbid."
+      },
+      "3_verifier_overconfident_wrong": {
+        "count": 115,
+        "n": 300,
+        "examples": [
+          {
+            "response_id": "10002",
+            "task_type": "Data2txt",
+            "model": "gpt-4-0613",
+            "gold_has_hallucination": false,
+            "attempt0_mapped_decision": "CORRECT",
+            "attempt0_confidence": 0.9828232526779175,
+            "final_decision": "ACCEPT",
+            "answer_preview": "Mediterra Market and Cafe, located at 5575 Hollister Ave in Goleta, CA, is a Mediterranean and Greek restaurant offering a variety of dishes. The esta"
+          },
+          {
+            "response_id": "10003",
+            "task_type": "Data2txt",
+            "model": "gpt-3.5-turbo-0613",
+            "gold_has_hallucination": false,
+            "attempt0_mapped_decision": "CORRECT",
+            "attempt0_confidence": 0.9828232526779175,
+            "final_decision": "ACCEPT",
+            "answer_preview": "Mediterra Market and Cafe, located at 5575 Hollister Ave in Goleta, CA, is a Mediterranean and Greek restaurant offering a variety of dishes. The esta"
+          },
+          {
+            "response_id": "10005",
+            "task_type": "Data2txt",
+            "model": "llama-2-7b-chat",
+            "gold_has_hallucination": false,
+            "attempt0_mapped_decision": "CORRECT",
+            "attempt0_confidence": 0.9828232526779175,
+            "final_decision": "ACCEPT",
+            "answer_preview": "Mediterra Market and Cafe, located at 5575 Hollister Ave in Goleta, CA, is a Mediterranean and Greek restaurant offering a variety of dishes. The esta"
+          },
+          {
+            "response_id": "1001",
+            "task_type": "Summary",
+            "model": "llama-2-70b-chat",
+            "gold_has_hallucination": false,
+            "attempt0_mapped_decision": "CORRECT",
+            "attempt0_confidence": 0.9783018827438354,
+            "final_decision": "ABSTAIN",
+            "answer_preview": "The video of Officer Michael Slager shooting Walter Scott in the back as he fled has sparked outrage, revealing a disturbing lack of accountability. D"
+          },
+          {
+            "response_id": "10014",
+            "task_type": "Data2txt",
+            "model": "gpt-4-0613",
+            "gold_has_hallucination": false,
+            "attempt0_mapped_decision": "CORRECT",
+            "attempt0_confidence": 0.9957103729248047,
+            "final_decision": "ABSTAIN",
+            "answer_preview": "El Taco Tequila Taqueria is a Mexican restaurant located at 14 E Cota St in Santa Barbara, CA. It offers a casual dining experience with a trendy ambi"
+          }
+        ]
+      },
+      "4_decision_policy_zero_abstain": {
+        "note": "See decision_rates above - attempt0_abstain_rate is 0.0 in ALL conditions (A/B/C on this subset, and D/E on the full 2700) - the decision policy never abstains regardless of evidence-selection method."
+      },
+      "5_correction_failure_harmful": {
+        "count": 101,
+        "n": 300,
+        "examples": [
+          {
+            "response_id": "1001",
+            "task_type": "Summary",
+            "model": "llama-2-70b-chat",
+            "gold_has_hallucination": false,
+            "attempt0_mapped_decision": "CORRECT",
+            "attempt0_confidence": 0.9783018827438354,
+            "final_decision": "ABSTAIN",
+            "answer_preview": "The video of Officer Michael Slager shooting Walter Scott in the back as he fled has sparked outrage, revealing a disturbing lack of accountability. D"
+          },
+          {
+            "response_id": "10014",
+            "task_type": "Data2txt",
+            "model": "gpt-4-0613",
+            "gold_has_hallucination": false,
+            "attempt0_mapped_decision": "CORRECT",
+            "attempt0_confidence": 0.9957103729248047,
+            "final_decision": "ABSTAIN",
+            "answer_preview": "El Taco Tequila Taqueria is a Mexican restaurant located at 14 E Cota St in Santa Barbara, CA. It offers a casual dining experience with a trendy ambi"
+          },
+          {
+            "response_id": "10015",
+            "task_type": "Data2txt",
+            "model": "gpt-3.5-turbo-0613",
+            "gold_has_hallucination": false,
+            "attempt0_mapped_decision": "CORRECT",
+            "attempt0_confidence": 0.9957103729248047,
+            "final_decision": "ABSTAIN",
+            "answer_preview": "El Taco Tequila Taqueria is a Mexican restaurant located at 14 E Cota St in Santa Barbara, CA. It offers a casual dining experience with a trendy ambi"
+          },
+          {
+            "response_id": "10016",
+            "task_type": "Data2txt",
+            "model": "mistral-7B-instruct",
+            "gold_has_hallucination": false,
+            "attempt0_mapped_decision": "CORRECT",
+            "attempt0_confidence": 0.9957103729248047,
+            "final_decision": "ABSTAIN",
+            "answer_preview": "El Taco Tequila Taqueria is a Mexican restaurant located at 14 E Cota St in Santa Barbara, CA. It offers a casual dining experience with a trendy ambi"
+          },
+          {
+            "response_id": "10017",
+            "task_type": "Data2txt",
+            "model": "llama-2-7b-chat",
+            "gold_has_hallucination": false,
+            "attempt0_mapped_decision": "CORRECT",
+            "attempt0_confidence": 0.9957103729248047,
+            "final_decision": "ABSTAIN",
+            "answer_preview": "El Taco Tequila Taqueria is a Mexican restaurant located at 14 E Cota St in Santa Barbara, CA. It offers a casual dining experience with a trendy ambi"
+          }
+        ]
+      }
+    }
+  },
+  "provenance": {
+    "note": "Every value above is read directly from the source artifact listed - none are recomputed with different logic or invented. See tests/test_final_report.py for the programmatic consistency check against these same source files.",
+    "source_artifacts": [
+      "data/processed/dataset_manifest.json",
+      "experiments/verifier_binary_final/final/dev_metrics.json",
+      "experiments/verifier_binary_final/final/reproducibility.json",
+      "data/processed/retrieval/corpus_manifest.json",
+      "data/processed/retrieval/reranker_eval_results.json",
+      "data/processed/integration/integration_eval_results.json",
+      "data/processed/integration/decision_policy_results.json",
+      "data/processed/evaluation/ragtruth/ragtruth_eval_results.json",
+      "data/processed/evaluation/truthfulqa/truthfulqa_eval_results.json",
+      "data/processed/evaluation/ablations/ablation_results.json",
+      "data/processed/evaluation/ablations/ablation_error_analysis.json"
+    ]
+  }
+}

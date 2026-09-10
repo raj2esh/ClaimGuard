@@ -1,0 +1,52 @@
+# ClaimGuard default configuration.
+# Conservative defaults for a GPU shared with the SAM-RNet `exp42` training job
+# (typically ~12GB VRAM in use). Do not assume the full ~48GB is available.
+
+seed: 42
+
+device: cuda  # falls back to cpu automatically at runtime if CUDA is unavailable
+
+logging:
+  level: INFO
+  log_dir: logs
+  log_to_file: true
+
+paths:
+  project_root: "."
+  data_raw: data/raw
+  data_processed: data/processed
+  data_evaluation: data/evaluation
+  experiments: experiments
+  results: experiments/results
+
+retrieval:
+  bm25_top_k: 20
+  dense_top_k: 20
+  merged_top_k: 20
+
+reranking:
+  top_k: 5
+
+correction:
+  max_iterations: 2
+
+context:
+  max_context_length: 4096
+
+batch_sizes:
+  generation: 1
+  embedding: 32
+  reranking: 16
+  verification: 16
+
+precision:
+  generation: bf16
+  embedding: fp16
+  reranking: fp16
+  verification: fp32
+
+gpu:
+  # SAM-RNet (exp42 env) may be concurrently using ~12GB VRAM on the shared card.
+  # These are informational only; nothing here allocates GPU memory.
+  assume_reserved_by_other_jobs_gb: 12
+  safety_margin_gb: 4

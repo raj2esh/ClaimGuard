@@ -1,0 +1,39 @@
+data:
+  manifest_path: data/processed/dataset_manifest.json
+  manifest_version_expected: '1.3'
+  pool_dev_path: data/processed/verifier_pool/dev.jsonl
+  pool_train_path: data/processed/verifier_pool/train.jsonl
+  require_premise_text: true
+model:
+  dtype: bfloat16
+  label_order:
+  - entailment
+  - contradiction
+  max_length: 256
+  name: MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli
+  num_labels: 2
+smoke_test:
+  eval_steps: 2
+  logging_steps: 1
+  max_dev_samples: 16
+  max_steps: 5
+  max_train_samples: 32
+  save_steps: 2
+training:
+  batch_size: 16
+  eval_steps: 500
+  gradient_accumulation_steps: 2
+  greater_is_better: true
+  learning_rate: 2.0e-05
+  logging_steps: 50
+  lr_scheduler_type: linear
+  max_grad_norm: 1.0
+  metric_for_best_model: macro_f1
+  mixed_precision: bf16
+  num_epochs: 1
+  output_dir: experiments/verifier_binary_final
+  save_steps: 500
+  save_total_limit: 2
+  seed: 42
+  warmup_ratio: 0.06
+  weight_decay: 0.01

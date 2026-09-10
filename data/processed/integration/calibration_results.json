@@ -1,0 +1,260 @@
+{
+  "config": {
+    "eval_seed": 42,
+    "eval_sample_size": 2000,
+    "n_bins": 10,
+    "verifier_checkpoint_dir": "<PROJECT_ROOT>/experiments/verifier_binary_final/final"
+  },
+  "eval_set_identical_to_step13": true,
+  "score_distributions": {
+    "gold_supports": {
+      "count": 1024,
+      "mean": 0.9826032166647565,
+      "median": 0.99870565533638,
+      "stdev": 0.1052731569764146,
+      "p10": 0.9957684278488159,
+      "p90": 0.9995487332344055,
+      "min": 0.006589771248400211,
+      "max": 0.9998977184295654
+    },
+    "gold_refutes": {
+      "count": 252,
+      "mean": 0.08065417168998262,
+      "median": 0.021698253229260445,
+      "stdev": 0.19340305398813598,
+      "p10": 0.002099273493513465,
+      "p90": 0.12028371542692184,
+      "min": 0.00047285447362810373,
+      "max": 0.999312162399292
+    },
+    "non_gold_for_supports_claims": {
+      "count": 6471,
+      "mean": 0.8556308224520558,
+      "median": 0.9940890073776245,
+      "stdev": 0.28305156280295296,
+      "p10": 0.3106943964958191,
+      "p90": 0.9992563128471375,
+      "min": 0.001367025775834918,
+      "max": 0.9999097585678101
+    },
+    "non_gold_for_refutes_claims": {
+      "count": 2253,
+      "mean": 0.24073157661592098,
+      "median": 0.033716537058353424,
+      "stdev": 0.351705282184973,
+      "p10": 0.002822832902893424,
+      "p90": 0.9591543078422546,
+      "min": 0.00016346470511052758,
+      "max": 0.9996429681777954
+    }
+  },
+  "non_gold_confidence_descriptive_only": {
+    "count": 8724,
+    "mean": 0.6968311891566853,
+    "median": 0.975753664970398,
+    "stdev": 0.4047175714644486,
+    "p10": 0.013636834919452667,
+    "p90": 0.9991169571876526,
+    "min": 0.00016346470511052758,
+    "max": 0.9999097585678101
+  },
+  "gold_calibration": {
+    "n_gold_points": 1276,
+    "ece": 0.009175234780789968,
+    "brier_score": 0.01777046973045988,
+    "reliability_bins": [
+      {
+        "bin_range": [
+          0.0,
+          0.1
+        ],
+        "count": 0,
+        "mean_confidence": null,
+        "accuracy": null
+      },
+      {
+        "bin_range": [
+          0.1,
+          0.2
+        ],
+        "count": 0,
+        "mean_confidence": null,
+        "accuracy": null
+      },
+      {
+        "bin_range": [
+          0.2,
+          0.3
+        ],
+        "count": 0,
+        "mean_confidence": null,
+        "accuracy": null
+      },
+      {
+        "bin_range": [
+          0.3,
+          0.4
+        ],
+        "count": 0,
+        "mean_confidence": null,
+        "accuracy": null
+      },
+      {
+        "bin_range": [
+          0.4,
+          0.5
+        ],
+        "count": 0,
+        "mean_confidence": null,
+        "accuracy": null
+      },
+      {
+        "bin_range": [
+          0.5,
+          0.6
+        ],
+        "count": 9,
+        "mean_confidence": 0.5553162296613058,
+        "accuracy": 0.6666666666666666
+      },
+      {
+        "bin_range": [
+          0.6,
+          0.7
+        ],
+        "count": 7,
+        "mean_confidence": 0.6712276424680438,
+        "accuracy": 0.42857142857142855
+      },
+      {
+        "bin_range": [
+          0.7,
+          0.8
+        ],
+        "count": 7,
+        "mean_confidence": 0.7323341369628906,
+        "accuracy": 0.7142857142857143
+      },
+      {
+        "bin_range": [
+          0.8,
+          0.9
+        ],
+        "count": 23,
+        "mean_confidence": 0.8704577425251836,
+        "accuracy": 0.9130434782608695
+      },
+      {
+        "bin_range": [
+          0.9,
+          1.0
+        ],
+        "count": 1230,
+        "mean_confidence": 0.9934154807067499,
+        "accuracy": 0.9869918699186991
+      }
+    ],
+    "overconfidence_verdict": {
+      "bins": [
+        {
+          "bin_range": [
+            0.0,
+            0.1
+          ],
+          "count": 0,
+          "mean_confidence": null,
+          "accuracy": null
+        },
+        {
+          "bin_range": [
+            0.1,
+            0.2
+          ],
+          "count": 0,
+          "mean_confidence": null,
+          "accuracy": null
+        },
+        {
+          "bin_range": [
+            0.2,
+            0.3
+          ],
+          "count": 0,
+          "mean_confidence": null,
+          "accuracy": null
+        },
+        {
+          "bin_range": [
+            0.3,
+            0.4
+          ],
+          "count": 0,
+          "mean_confidence": null,
+          "accuracy": null
+        },
+        {
+          "bin_range": [
+            0.4,
+            0.5
+          ],
+          "count": 0,
+          "mean_confidence": null,
+          "accuracy": null
+        },
+        {
+          "bin_range": [
+            0.5,
+            0.6
+          ],
+          "count": 9,
+          "mean_confidence": 0.5553162296613058,
+          "accuracy": 0.6666666666666666,
+          "overconfident": false
+        },
+        {
+          "bin_range": [
+            0.6,
+            0.7
+          ],
+          "count": 7,
+          "mean_confidence": 0.6712276424680438,
+          "accuracy": 0.42857142857142855,
+          "overconfident": true
+        },
+        {
+          "bin_range": [
+            0.7,
+            0.8
+          ],
+          "count": 7,
+          "mean_confidence": 0.7323341369628906,
+          "accuracy": 0.7142857142857143,
+          "overconfident": true
+        },
+        {
+          "bin_range": [
+            0.8,
+            0.9
+          ],
+          "count": 23,
+          "mean_confidence": 0.8704577425251836,
+          "accuracy": 0.9130434782608695,
+          "overconfident": false
+        },
+        {
+          "bin_range": [
+            0.9,
+            1.0
+          ],
+          "count": 1230,
+          "mean_confidence": 0.9934154807067499,
+          "accuracy": 0.9869918699186991,
+          "overconfident": true
+        }
+      ],
+      "fraction_of_points_in_overconfident_bins": 0.9749216300940439,
+      "overall": "overconfident"
+    }
+  },
+  "note": "ECE/Brier computed ONLY over gold-evidence candidates - see claimguard.decision.calibration module docstring for why non-gold candidates have no legitimate ground-truth 'correct' label."
+}

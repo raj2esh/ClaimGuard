@@ -1,0 +1,36 @@
+# ClaimGuard reranker baseline configuration (Step 14).
+#
+# Integrates the already-selected, Step 5D-smoke-tested reranker
+# (BAAI/bge-reranker-large) on top of Step 13's FAISS retrieval
+# infrastructure, as a two-stage pipeline:
+#
+#     query -> BGE embedding -> FAISS top-K -> BGE reranker -> reranked top-N
+#
+# ONE controlled baseline configuration - no parameter sweep. This step
+# does NOT call the verifier (see PROJECT_REPORT.md Step 14) - retrieval
+# quality and reranking quality are evaluated in isolation first.
+
+reranker:
+  name: "BAAI/bge-reranker-large"
+  device: "cuda"
+  dtype: "float16"
+  max_seq_length: 512
+  batch_size: 16
+  # Score direction/type are EMPIRICALLY VERIFIED at load time (see
+  # claimguard.reranking.reranker.load_reranker) - not assumed from this
+  # file. Recorded here as documentation of the Step 5D/14 finding:
+  # default activation_fn is Sigmoid (probability-like, [0,1]); higher
+  # score = more relevant.
+  score_direction: "higher_is_more_relevant"
+  activation: "default_sigmoid"
+
+pipeline:
+  retrieval_top_k: 20
+  rerank_top_n: 5
+
+evaluation:
+  # Same FEVER-train-derived eval set construction as Step 13 -
+  # claimguard.retrieval.eval.build_eval_set with these exact parameters.
+  seed: 42
+  sample_size: 2000
+  source: "fever_train"

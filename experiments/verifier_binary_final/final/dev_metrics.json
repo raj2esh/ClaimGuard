@@ -1,0 +1,39 @@
+{
+  "eval_loss": 0.1217588409781456,
+  "eval_accuracy": 0.9619893428063944,
+  "eval_macro_f1": 0.9585086021667156,
+  "eval_weighted_f1": 0.9621458765228149,
+  "eval_per_class": {
+    "entailment": {
+      "precision": 0.9804285316760968,
+      "recall": 0.9608217434778656,
+      "f1": 0.9705261224864568,
+      "support": 11001
+    },
+    "contradiction": {
+      "precision": 0.9294483548862335,
+      "recall": 0.9641704873492953,
+      "f1": 0.9464910818469745,
+      "support": 5889
+    }
+  },
+  "eval_confusion_matrix": [
+    [
+      10570,
+      431
+    ],
+    [
+      211,
+      5678
+    ]
+  ],
+  "eval_confusion_matrix_labels": [
+    "entailment",
+    "contradiction"
+  ],
+  "eval_num_examples": 16890,
+  "eval_runtime": 48.38,
+  "eval_samples_per_second": 349.111,
+  "eval_steps_per_second": 21.827,
+  "epoch": 1.0
+}

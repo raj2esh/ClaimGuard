@@ -1,0 +1,82 @@
+{
+  "model_identifiers": {
+    "generator": "Qwen/Qwen3-8B",
+    "verifier": "<PROJECT_ROOT>/experiments/verifier_binary_final/final",
+    "reranker": "BAAI/bge-reranker-large"
+  },
+  "frozen_config": {
+    "max_correction_attempts": 2,
+    "pipeline": {
+      "retrieval_top_k": 20,
+      "rerank_top_n": 5,
+      "verifier_max_length": 256
+    },
+    "decision_policy": {
+      "entailment_threshold": 0.5,
+      "contradiction_threshold": 0.5
+    },
+    "generation": {
+      "max_new_tokens": 256,
+      "do_sample": false,
+      "seed": 42
+    }
+  },
+  "evaluation_tracks": {
+    "mc_track": "MC1/MC2/MC0 via log-likelihood scoring of the frozen Qwen3-8B model - measures the generator's own parametric calibration, no retrieval/verifier/correction involved.",
+    "free_form_track": "run_correction_loop (Step 18, unchanged) on each question's free-form generation - reports ACCEPT/CORRECT/ABSTAIN process behavior only, NOT a truthfulness judgment (no approved automatic free-form truthfulness judge exists in this project - see claimguard.evaluation.truthfulqa_eval module docstring)."
+  },
+  "n_questions_evaluated": 790,
+  "n_categories": 37,
+  "categories": [
+    "Advertising",
+    "Confusion: Other",
+    "Confusion: People",
+    "Confusion: Places",
+    "Conspiracies",
+    "Distraction",
+    "Economics",
+    "Education",
+    "Fiction",
+    "Finance",
+    "Health",
+    "History",
+    "Indexical Error: Identity",
+    "Indexical Error: Location",
+    "Indexical Error: Other",
+    "Language",
+    "Law",
+    "Logical Falsehood",
+    "Mandela Effect",
+    "Misconceptions",
+    "Misconceptions: Topical",
+    "Misinformation",
+    "Misquotations",
+    "Myths and Fairytales",
+    "Nutrition",
+    "Paranormal",
+    "Politics",
+    "Proverbs",
+    "Psychology",
+    "Religion",
+    "Science",
+    "Sociology",
+    "Statistics",
+    "Stereotypes",
+    "Subjective",
+    "Superstitions",
+    "Weather"
+  ],
+  "pilot_mode": false,
+  "pilot_n": null,
+  "model_load_seconds": 16.260445594787598,
+  "total_loop_seconds": 5092.494934082031,
+  "peak_gpu_memory_gb": 17.932907104492188,
+  "reproducibility_check": {
+    "subset_size": 10,
+    "identical_across_two_reruns": true
+  },
+  "python_version": "3.12.14 | packaged by Anaconda, Inc. | (main, Aug 27 2026, 14:46:43) [GCC 14.3.0]",
+  "torch_version": "2.11.0+cu128",
+  "gpu_name": "NVIDIA RTX PRO 5000 Blackwell",
+  "timestamp": "2026-09-05T05:31:45.617615+00:00"
+}

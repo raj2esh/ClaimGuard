@@ -1,0 +1,92 @@
+# ClaimGuard experiment definitions.
+#
+# These are PLACEHOLDERS ONLY. No experiment has been run — every entry's
+# `status` is `not_run`. See PROJECT_PLAN.md for when each will be executed
+# (baseline experiments: Step 14, ablations: Step 15).
+
+experiments:
+  vanilla_llm:
+    description: "Generator only. No retrieval, reranking, verification, or correction. Baseline."
+    status: not_run
+    components:
+      retrieval: false
+      reranking: false
+      verification: false
+      correction: false
+
+  standard_rag:
+    description: "Generator + retrieval (BM25+FAISS) + reranking. No verification or correction."
+    status: not_run
+    components:
+      retrieval: true
+      reranking: true
+      verification: false
+      correction: false
+
+  rag_verification:
+    description: "Generator + retrieval + reranking + verification. No correction."
+    status: not_run
+    components:
+      retrieval: true
+      reranking: true
+      verification: true
+      correction: false
+
+  claimguard_full:
+    description: "Full pipeline: retrieval + reranking + verification + targeted correction."
+    status: not_run
+    components:
+      retrieval: true
+      reranking: true
+      verification: true
+      correction: true
+
+  ablation_no_bm25:
+    description: "Full pipeline with BM25 removed from retrieval (dense/FAISS only)."
+    status: not_run
+    ablation_of: claimguard_full
+    components:
+      retrieval: true
+      reranking: true
+      verification: true
+      correction: true
+
+  ablation_no_dense:
+    description: "Full pipeline with dense/FAISS retrieval removed (BM25 only)."
+    status: not_run
+    ablation_of: claimguard_full
+    components:
+      retrieval: true
+      reranking: true
+      verification: true
+      correction: true
+
+  ablation_no_reranker:
+    description: "Full pipeline with the reranking stage removed."
+    status: not_run
+    ablation_of: claimguard_full
+    components:
+      retrieval: true
+      reranking: false
+      verification: true
+      correction: true
+
+  ablation_no_verifier:
+    description: "Full pipeline with claim verification removed."
+    status: not_run
+    ablation_of: claimguard_full
+    components:
+      retrieval: true
+      reranking: true
+      verification: false
+      correction: true
+
+  ablation_no_correction:
+    description: "Full pipeline with self-correction removed (verify only, no rewrite)."
+    status: not_run
+    ablation_of: claimguard_full
+    components:
+      retrieval: true
+      reranking: true
+      verification: true
+      correction: false

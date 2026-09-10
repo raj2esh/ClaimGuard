@@ -1,0 +1,45 @@
+{
+  "model_identifiers": {
+    "generator": "Qwen/Qwen3-8B",
+    "verifier": "<PROJECT_ROOT>/experiments/verifier_binary_final/final",
+    "reranker": "BAAI/bge-reranker-large"
+  },
+  "frozen_config": {
+    "max_correction_attempts": 2,
+    "pipeline": {
+      "retrieval_top_k": 20,
+      "rerank_top_n": 5,
+      "verifier_max_length": 256
+    },
+    "decision_policy": {
+      "entailment_threshold": 0.5,
+      "contradiction_threshold": 0.5
+    },
+    "generation": {
+      "max_new_tokens": 256,
+      "do_sample": false,
+      "seed": 42
+    }
+  },
+  "ablation_conditions": {
+    "A_reranked": "Original frozen ClaimGuard (retrieval+reranker+verifier+decision+correction) - this is Step 19's Condition B architecture, run fresh here on the same subset for a determinism cross-check against Step 19's full-run stored results.",
+    "B_no_reranker": "Reranker DISABLED - FAISS top-k candidates taken directly in FAISS order (first rerank_top_n), verified, decided, corrected exactly as in A.",
+    "C_faiss_top1": "Only the single top-ranked FAISS candidate is verified (no reranking, no top-n selection) - decided, corrected exactly as in A.",
+    "D_no_correction_note": "REUSED from Step 19's ragtruth_eval_results.json (B_generated.attempt0_detection_metrics) - zero new inference.",
+    "E_verify_only_note": "REUSED from Step 19's ragtruth_eval_results.json (C_verify_only) - zero new inference."
+  },
+  "subset_size": 300,
+  "full_ragtruth_test_size": 2700,
+  "subset_selection": "first N test responses by response_id, stable sort",
+  "model_load_seconds": 16.952305555343628,
+  "total_loop_seconds": 9774.769058704376,
+  "peak_gpu_memory_gb": 18.248193740844727,
+  "reproducibility_check": {
+    "subset_size": 10,
+    "identical_across_two_reruns": true
+  },
+  "python_version": "3.12.14 | packaged by Anaconda, Inc. | (main, Aug 27 2026, 14:46:43) [GCC 14.3.0]",
+  "torch_version": "2.11.0+cu128",
+  "gpu_name": "NVIDIA RTX PRO 5000 Blackwell",
+  "timestamp": "2026-09-09T19:43:24.055758+00:00"
+}

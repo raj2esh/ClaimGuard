@@ -1,0 +1,82 @@
+{
+  "project": "ClaimGuard",
+  "steps_completed": "1-21",
+  "report_step": "22 (final documentation)",
+  "environment": {
+    "python_version": "3.12.14",
+    "torch_version": "2.11.0+cu128",
+    "transformers_version": "5.16.1",
+    "cuda_available": true,
+    "cuda_version": "12.8",
+    "gpu_name": "NVIDIA RTX PRO 5000 Blackwell",
+    "platform": "Linux-6.8.0-139-generic-x86_64-with-glibc2.39"
+  },
+  "frozen_model_identifiers": {
+    "generator": "Qwen/Qwen3-8B",
+    "generator_dtype": "bfloat16",
+    "verifier_base_model": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+    "verifier_checkpoint": "experiments/verifier_binary_final/final",
+    "verifier_n_params": 435063810,
+    "embedding_model": "BAAI/bge-large-en-v1.5",
+    "reranker_model": "BAAI/bge-reranker-large"
+  },
+  "seeds": {
+    "dataset_manifest_seed": 42,
+    "retrieval_eval_seed": 42,
+    "generation_seed": 42,
+    "ragtruth_eval_seed": "N/A (full test split evaluated, no sampling)",
+    "note": "Seed 42 used consistently across dataset splitting, retrieval-eval sampling, and deterministic generation throughout Steps 9-21."
+  },
+  "dataset_sources": {
+    "FEVER": "fever/fever (Hugging Face), CC BY-SA 3.0 + GNU FDL",
+    "HaluEval": "HaluEval (original repository), MIT",
+    "RAGTruth": "RAGTruth (original repository), MIT",
+    "TruthfulQA": "sylinrl/TruthfulQA (original repository), Apache 2.0"
+  },
+  "evaluation_counts": {
+    "ragtruth_test_responses": 2700,
+    "truthfulqa_questions": 790,
+    "ablation_subset_responses": 300,
+    "ablation_full_ragtruth_test_size": 2700
+  },
+  "config_and_checkpoint_file_hashes_sha256": {
+    "configs/default.yaml": "dde4d039d89f215600935f42feaf46310cf186849b20c012b0b932578194b78d",
+    "configs/models.yaml": "2c0a1106bba38ae6a44619365dba9d30043d8bd5652d2610a7b13b68b2565d2f",
+    "configs/verifier_binary_final.yaml": "6f49c8a49d310408f4a7af36f22f8132847b953d05506982fefec577d656b70b",
+    "configs/reranker_baseline.yaml": "e4a582c36dde81ada01eefd885bea49609c2c8aa1cd7dd3b6d7254c9d6bbd484",
+    "configs/integration_baseline.yaml": "1cabe5f45dd6966b87ddfe818e2b9ef13d6f39bf7ec79afdc9bf989a3475bb06",
+    "configs/decision_policy.yaml": "8e2798d19dd4a02c92a37c93d3d3d66cdbd80828f98190de75989338dd5ee65d",
+    "configs/generator_baseline.yaml": "bbaadb0445d3fa0980d486972dac4a5c67234f0cb1b8b28dc9cab2c0c8a5f717",
+    "configs/correction_baseline.yaml": "4e0d6697a1582cacd49176419246cf610c952a528d3006895a7da5e1fe0014e0",
+    "experiments/verifier_binary_final/final/config.json": "1785649b8098544c93e40e39443caba4731ebe028295cebafb49df8b6a5ecd5e"
+  },
+  "hash_scope_note": "Only small config/metadata files were hashed (see list above). Full model weight files (multi-GB safetensors shards) were NOT hashed - infeasible within this step's scope and not standard practice for a documentation-only step; model identity/provenance is instead established via the exact HF model identifiers and the verified architecture checks already performed in Steps 9-17 (e.g. assert_binary_head, bit-identical encoder checks).",
+  "key_artifact_paths": [
+    "data/processed/evaluation/ragtruth/ragtruth_eval_results.json",
+    "data/processed/evaluation/truthfulqa/truthfulqa_eval_results.json",
+    "data/processed/evaluation/ablations/ablation_results.json",
+    "data/processed/final/final_results_tables.json",
+    "experiments/verifier_binary_final/final/"
+  ],
+  "git_state": {
+    "git_status_short": [
+      "?? .gitignore",
+      "?? CLAIMGUARD_MODEL_SELECTION.md",
+      "?? PROJECT_PLAN.md",
+      "?? PROJECT_REPORT.md",
+      "?? README.md",
+      "?? RESEARCH.md",
+      "?? configs/",
+      "?? demo/",
+      "?? experiments/",
+      "?? notebooks/",
+      "?? pyproject.toml",
+      "?? requirements.txt",
+      "?? scripts/",
+      "?? src/",
+      "?? tests/"
+    ],
+    "git_log": "fatal: your current branch 'master' does not have any commits yet",
+    "commits_exist": false
+  }
+}

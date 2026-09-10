@@ -1,0 +1,136 @@
+{
+  "failure_source_separation": {
+    "1_retrieval_failure_zero_evidence": {
+      "count": 0,
+      "n": 300,
+      "examples": []
+    },
+    "2_retrieval_relevance_failure": {
+      "count": null,
+      "note": "NOT IDENTIFIABLE from the current evaluation - RAGTruth provides no per-evidence-item gold-relevance annotation analogous to FEVER's gold evidence sets, so whether retrieved-but-unflagged evidence is topically relevant cannot be determined without inventing a semantic relevance metric, which Step 21 instructions explicitly forbid."
+    },
+    "3_verifier_overconfident_wrong": {
+      "count": 115,
+      "n": 300,
+      "examples": [
+        {
+          "response_id": "10002",
+          "task_type": "Data2txt",
+          "model": "gpt-4-0613",
+          "gold_has_hallucination": false,
+          "attempt0_mapped_decision": "CORRECT",
+          "attempt0_confidence": 0.9828232526779175,
+          "final_decision": "ACCEPT",
+          "answer_preview": "Mediterra Market and Cafe, located at 5575 Hollister Ave in Goleta, CA, is a Mediterranean and Greek restaurant offering a variety of dishes. The esta"
+        },
+        {
+          "response_id": "10003",
+          "task_type": "Data2txt",
+          "model": "gpt-3.5-turbo-0613",
+          "gold_has_hallucination": false,
+          "attempt0_mapped_decision": "CORRECT",
+          "attempt0_confidence": 0.9828232526779175,
+          "final_decision": "ACCEPT",
+          "answer_preview": "Mediterra Market and Cafe, located at 5575 Hollister Ave in Goleta, CA, is a Mediterranean and Greek restaurant offering a variety of dishes. The esta"
+        },
+        {
+          "response_id": "10005",
+          "task_type": "Data2txt",
+          "model": "llama-2-7b-chat",
+          "gold_has_hallucination": false,
+          "attempt0_mapped_decision": "CORRECT",
+          "attempt0_confidence": 0.9828232526779175,
+          "final_decision": "ACCEPT",
+          "answer_preview": "Mediterra Market and Cafe, located at 5575 Hollister Ave in Goleta, CA, is a Mediterranean and Greek restaurant offering a variety of dishes. The esta"
+        },
+        {
+          "response_id": "1001",
+          "task_type": "Summary",
+          "model": "llama-2-70b-chat",
+          "gold_has_hallucination": false,
+          "attempt0_mapped_decision": "CORRECT",
+          "attempt0_confidence": 0.9783018827438354,
+          "final_decision": "ABSTAIN",
+          "answer_preview": "The video of Officer Michael Slager shooting Walter Scott in the back as he fled has sparked outrage, revealing a disturbing lack of accountability. D"
+        },
+        {
+          "response_id": "10014",
+          "task_type": "Data2txt",
+          "model": "gpt-4-0613",
+          "gold_has_hallucination": false,
+          "attempt0_mapped_decision": "CORRECT",
+          "attempt0_confidence": 0.9957103729248047,
+          "final_decision": "ABSTAIN",
+          "answer_preview": "El Taco Tequila Taqueria is a Mexican restaurant located at 14 E Cota St in Santa Barbara, CA. It offers a casual dining experience with a trendy ambi"
+        }
+      ]
+    },
+    "4_decision_policy_zero_abstain": {
+      "note": "See decision_rates above - attempt0_abstain_rate is 0.0 in ALL conditions (A/B/C on this subset, and D/E on the full 2700) - the decision policy never abstains regardless of evidence-selection method."
+    },
+    "5_correction_failure_harmful": {
+      "count": 101,
+      "n": 300,
+      "examples": [
+        {
+          "response_id": "1001",
+          "task_type": "Summary",
+          "model": "llama-2-70b-chat",
+          "gold_has_hallucination": false,
+          "attempt0_mapped_decision": "CORRECT",
+          "attempt0_confidence": 0.9783018827438354,
+          "final_decision": "ABSTAIN",
+          "answer_preview": "The video of Officer Michael Slager shooting Walter Scott in the back as he fled has sparked outrage, revealing a disturbing lack of accountability. D"
+        },
+        {
+          "response_id": "10014",
+          "task_type": "Data2txt",
+          "model": "gpt-4-0613",
+          "gold_has_hallucination": false,
+          "attempt0_mapped_decision": "CORRECT",
+          "attempt0_confidence": 0.9957103729248047,
+          "final_decision": "ABSTAIN",
+          "answer_preview": "El Taco Tequila Taqueria is a Mexican restaurant located at 14 E Cota St in Santa Barbara, CA. It offers a casual dining experience with a trendy ambi"
+        },
+        {
+          "response_id": "10015",
+          "task_type": "Data2txt",
+          "model": "gpt-3.5-turbo-0613",
+          "gold_has_hallucination": false,
+          "attempt0_mapped_decision": "CORRECT",
+          "attempt0_confidence": 0.9957103729248047,
+          "final_decision": "ABSTAIN",
+          "answer_preview": "El Taco Tequila Taqueria is a Mexican restaurant located at 14 E Cota St in Santa Barbara, CA. It offers a casual dining experience with a trendy ambi"
+        },
+        {
+          "response_id": "10016",
+          "task_type": "Data2txt",
+          "model": "mistral-7B-instruct",
+          "gold_has_hallucination": false,
+          "attempt0_mapped_decision": "CORRECT",
+          "attempt0_confidence": 0.9957103729248047,
+          "final_decision": "ABSTAIN",
+          "answer_preview": "El Taco Tequila Taqueria is a Mexican restaurant located at 14 E Cota St in Santa Barbara, CA. It offers a casual dining experience with a trendy ambi"
+        },
+        {
+          "response_id": "10017",
+          "task_type": "Data2txt",
+          "model": "llama-2-7b-chat",
+          "gold_has_hallucination": false,
+          "attempt0_mapped_decision": "CORRECT",
+          "attempt0_confidence": 0.9957103729248047,
+          "final_decision": "ABSTAIN",
+          "answer_preview": "El Taco Tequila Taqueria is a Mexican restaurant located at 14 E Cota St in Santa Barbara, CA. It offers a casual dining experience with a trendy ambi"
+        }
+      ]
+    }
+  },
+  "cross_validation": {
+    "n_compared": 300,
+    "matched": 300,
+    "mismatched": 0,
+    "match_rate": 1.0,
+    "mismatch_examples": [],
+    "note": "Condition A reruns the SAME architecture as Step 19's Condition B_generated on the same response_ids, using the same frozen deterministic configuration - a high match rate confirms determinism/consistency across independent runs, not a new finding."
+  }
+}

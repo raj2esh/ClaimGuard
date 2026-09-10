@@ -1,0 +1,8 @@
+metric,value
+n_responses,2700
+hallucination_prevalence,0.34925925925925927
+attempt0_accuracy,0.5588888888888889
+attempt0_macro_f1,0.5588859239245916
+final_accuracy,0.5803703703703704
+final_macro_f1,0.5797823538809245
+majority_class_baseline,0.6507407407407407

@@ -1,0 +1,36 @@
+# ClaimGuard generator baseline configuration (Step 17).
+#
+# Qwen3-8B used STRICTLY as the answer-generation component:
+#
+#     query -> Qwen3-8B generator -> candidate answer
+#
+# NOT the correction/regeneration loop (Step 18+) - this config governs
+# ONLY `src/claimguard/generation/qwen3.py`'s standalone generate() calls.
+#
+# `model.name`/`dtype`/`device` MIRROR configs/models.yaml's
+# generator.primary section (the project's single source of truth for
+# model selection - see CLAIMGUARD_MODEL_SELECTION.md). Repeated here
+# explicitly per Step 17 instructions; kept consistent by
+# tests/test_generation.py (fails loudly on drift rather than silently
+# diverging).
+
+model:
+  name: "Qwen/Qwen3-8B"     # must match configs/models.yaml generator.primary.name
+  dtype: "bfloat16"          # BF16 only - no quantization (CLAIMGUARD_MODEL_SELECTION.md)
+  device: "cuda"
+
+generation:
+  max_input_length: 8192     # matches configs/models.yaml generator.primary.max_seq_length
+  max_new_tokens: 256
+  do_sample: false            # deterministic decoding for the Step 17 smoke test
+  temperature: null           # not applicable when do_sample=false
+  top_p: null                 # not applicable when do_sample=false
+  seed: 42
+
+chat_template:
+  use_chat_template: true       # tokenizer.apply_chat_template - never a manually-assumed format
+  enable_thinking: false        # Qwen3 "thinking" mode explicitly OFF - ClaimGuard never stores
+                                 # or exposes hidden reasoning; established precedent from Step 5A
+  fallback_on_unsupported_kwarg: true  # retry apply_chat_template without enable_thinking if the
+                                        # installed tokenizer's template doesn't accept it, rather
+                                        # than crashing (matches Step 5A's validated fallback)

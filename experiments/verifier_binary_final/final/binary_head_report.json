@@ -1,0 +1,30 @@
+{
+  "strategy": "reuse_pretrained_encoder_and_pooler_plus_transplanted_classifier_rows",
+  "description": "Encoder and pooler weights reused unchanged from the pretrained checkpoint (verified bit-identical, not assumed). The new 2-row classifier is initialized from the ORIGINAL pretrained 3-class classifier's entailment and contradiction rows (verified indices from the model's own config) - not randomly initialized, and not trained from scratch.",
+  "source_model": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+  "source_label_indices": {
+    "contradiction": 2,
+    "entailment": 0
+  },
+  "encoder_reused": true,
+  "encoder_reuse_verified_bit_identical": true,
+  "pooler_reused": true,
+  "pooler_reuse_verified_bit_identical": true,
+  "classifier_shape_before": [
+    3,
+    1024
+  ],
+  "classifier_shape_after": [
+    2,
+    1024
+  ],
+  "classifier_rows_randomly_initialized": false,
+  "new_label2id": {
+    "entailment": 0,
+    "contradiction": 1
+  },
+  "new_id2label": {
+    "0": "entailment",
+    "1": "contradiction"
+  }
+}

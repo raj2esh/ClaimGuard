@@ -1,0 +1,44 @@
+{
+  "model_identifiers": {
+    "generator": "Qwen/Qwen3-8B",
+    "verifier": "<PROJECT_ROOT>/experiments/verifier_binary_final/final",
+    "reranker": "BAAI/bge-reranker-large"
+  },
+  "frozen_config": {
+    "max_correction_attempts": 2,
+    "pipeline": {
+      "retrieval_top_k": 20,
+      "rerank_top_n": 5,
+      "verifier_max_length": 256
+    },
+    "decision_policy": {
+      "entailment_threshold": 0.5,
+      "contradiction_threshold": 0.5
+    },
+    "generation": {
+      "max_new_tokens": 256,
+      "do_sample": false,
+      "seed": 42
+    }
+  },
+  "conditions": {
+    "B_generated": "Fresh Qwen3-8B generation from RAGTruth's own prompt, then the full bounded correction loop.",
+    "C_verify_only": "Original RAGTruth response as starting candidate, single verify pass only (max_correction_attempts=0).",
+    "D_original_full_loop": "Original RAGTruth response as starting candidate, full bounded correction loop.",
+    "A_note": "Condition A, as literally specified, is procedurally identical to D - see PROJECT_REPORT.md Step 19 Section 4."
+  },
+  "n_responses_evaluated": 2700,
+  "pilot_mode": false,
+  "pilot_n": null,
+  "model_load_seconds": 18.033872842788696,
+  "total_loop_seconds": 54973.13391947746,
+  "peak_gpu_memory_gb": 18.38864517211914,
+  "reproducibility_check": {
+    "subset_size": 10,
+    "identical_across_two_reruns": true
+  },
+  "python_version": "3.12.14 | packaged by Anaconda, Inc. | (main, Aug 27 2026, 14:46:43) [GCC 14.3.0]",
+  "torch_version": "2.11.0+cu128",
+  "gpu_name": "NVIDIA RTX PRO 5000 Blackwell",
+  "timestamp": "2026-09-04T09:33:33.007632+00:00"
+}

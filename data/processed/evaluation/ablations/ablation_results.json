@@ -1,0 +1,375 @@
+{
+  "run_manifest_summary": {
+    "subset_size": 300,
+    "full_ragtruth_test_size": 2700,
+    "model_identifiers": {
+      "generator": "Qwen/Qwen3-8B",
+      "verifier": "<PROJECT_ROOT>/experiments/verifier_binary_final/final",
+      "reranker": "BAAI/bge-reranker-large"
+    },
+    "frozen_config": {
+      "max_correction_attempts": 2,
+      "pipeline": {
+        "retrieval_top_k": 20,
+        "rerank_top_n": 5,
+        "verifier_max_length": 256
+      },
+      "decision_policy": {
+        "entailment_threshold": 0.5,
+        "contradiction_threshold": 0.5
+      },
+      "generation": {
+        "max_new_tokens": 256,
+        "do_sample": false,
+        "seed": 42
+      }
+    },
+    "ablation_conditions": {
+      "A_reranked": "Original frozen ClaimGuard (retrieval+reranker+verifier+decision+correction) - this is Step 19's Condition B architecture, run fresh here on the same subset for a determinism cross-check against Step 19's full-run stored results.",
+      "B_no_reranker": "Reranker DISABLED - FAISS top-k candidates taken directly in FAISS order (first rerank_top_n), verified, decided, corrected exactly as in A.",
+      "C_faiss_top1": "Only the single top-ranked FAISS candidate is verified (no reranking, no top-n selection) - decided, corrected exactly as in A.",
+      "D_no_correction_note": "REUSED from Step 19's ragtruth_eval_results.json (B_generated.attempt0_detection_metrics) - zero new inference.",
+      "E_verify_only_note": "REUSED from Step 19's ragtruth_eval_results.json (C_verify_only) - zero new inference."
+    }
+  },
+  "condition_metrics_A_B_C_subset": {
+    "A_reranked": {
+      "n": 300,
+      "attempt0_detection_metrics": {
+        "n": 300,
+        "accuracy": 0.5866666666666667,
+        "hallucinated_precision": 0.4838709677419355,
+        "hallucinated_recall": 0.8974358974358975,
+        "hallucinated_f1": 0.62874251497006,
+        "not_hallucinated_precision": 0.8554216867469879,
+        "not_hallucinated_recall": 0.3879781420765027,
+        "not_hallucinated_f1": 0.5338345864661653,
+        "macro_f1": 0.5812885507181127,
+        "confusion_matrix": {
+          "tp": 105,
+          "fp": 112,
+          "fn": 12,
+          "tn": 71
+        }
+      },
+      "final_outcome_metrics": {
+        "n": 300,
+        "accuracy": 0.6,
+        "hallucinated_precision": 0.49246231155778897,
+        "hallucinated_recall": 0.8376068376068376,
+        "hallucinated_f1": 0.6202531645569621,
+        "not_hallucinated_precision": 0.8118811881188119,
+        "not_hallucinated_recall": 0.44808743169398907,
+        "not_hallucinated_f1": 0.5774647887323944,
+        "macro_f1": 0.5988589766446782,
+        "confusion_matrix": {
+          "tp": 98,
+          "fp": 101,
+          "fn": 19,
+          "tn": 82
+        }
+      },
+      "decision_rates": {
+        "n": 300,
+        "attempt0_accept_rate": 0.27666666666666667,
+        "attempt0_correct_rate": 0.7233333333333334,
+        "attempt0_abstain_rate": 0.0,
+        "final_accept_rate": 0.33666666666666667,
+        "final_abstain_rate": 0.6633333333333333,
+        "correction_attempted_rate": 0.7233333333333334,
+        "correction_success_rate_among_attempted": 0.08294930875576037,
+        "max_attempts_reached_rate": 0.6633333333333333
+      },
+      "correction_outcome_categories": {
+        "hallucinated_still_flagged": 98,
+        "not_hallucinated_preserved": 82,
+        "hallucinated_corrected_successfully": 7,
+        "not_hallucinated_degraded": 101,
+        "hallucinated_missed": 12
+      },
+      "unnecessary_correction_count": 112,
+      "n_failed_responses": 0,
+      "confidence_by_outcome": {
+        "accept_correct_negative": {
+          "n": 71,
+          "mean_confidence": 0.8608294868133437,
+          "median_confidence": 0.9393594861030579
+        },
+        "accept_wrong_missed_hallucination": {
+          "n": 12,
+          "mean_confidence": 0.8990036100149155,
+          "median_confidence": 0.9539660811424255
+        },
+        "correct_wrong_false_positive": {
+          "n": 112,
+          "mean_confidence": 0.981324028223753,
+          "median_confidence": 0.9916645884513855
+        },
+        "correct_correct_positive": {
+          "n": 105,
+          "mean_confidence": 0.9905799207233247,
+          "median_confidence": 0.9934166669845581
+        }
+      }
+    },
+    "B_no_reranker": {
+      "n": 300,
+      "attempt0_detection_metrics": {
+        "n": 300,
+        "accuracy": 0.5866666666666667,
+        "hallucinated_precision": 0.4838709677419355,
+        "hallucinated_recall": 0.8974358974358975,
+        "hallucinated_f1": 0.62874251497006,
+        "not_hallucinated_precision": 0.8554216867469879,
+        "not_hallucinated_recall": 0.3879781420765027,
+        "not_hallucinated_f1": 0.5338345864661653,
+        "macro_f1": 0.5812885507181127,
+        "confusion_matrix": {
+          "tp": 105,
+          "fp": 112,
+          "fn": 12,
+          "tn": 71
+        }
+      },
+      "final_outcome_metrics": {
+        "n": 300,
+        "accuracy": 0.6066666666666667,
+        "hallucinated_precision": 0.4976303317535545,
+        "hallucinated_recall": 0.8974358974358975,
+        "hallucinated_f1": 0.6402439024390244,
+        "not_hallucinated_precision": 0.8651685393258427,
+        "not_hallucinated_recall": 0.4207650273224044,
+        "not_hallucinated_f1": 0.5661764705882354,
+        "macro_f1": 0.6032101865136299,
+        "confusion_matrix": {
+          "tp": 105,
+          "fp": 106,
+          "fn": 12,
+          "tn": 77
+        }
+      },
+      "decision_rates": {
+        "n": 300,
+        "attempt0_accept_rate": 0.27666666666666667,
+        "attempt0_correct_rate": 0.7233333333333334,
+        "attempt0_abstain_rate": 0.0,
+        "final_accept_rate": 0.2966666666666667,
+        "final_abstain_rate": 0.7033333333333334,
+        "correction_attempted_rate": 0.7233333333333334,
+        "correction_success_rate_among_attempted": 0.027649769585253458,
+        "max_attempts_reached_rate": 0.7033333333333334
+      },
+      "correction_outcome_categories": {
+        "hallucinated_still_flagged": 105,
+        "not_hallucinated_degraded": 106,
+        "not_hallucinated_preserved": 77,
+        "hallucinated_missed": 12
+      },
+      "unnecessary_correction_count": 112,
+      "n_failed_responses": 0,
+      "confidence_by_outcome": {
+        "accept_correct_negative": {
+          "n": 71,
+          "mean_confidence": 0.8282581693689588,
+          "median_confidence": 0.9043130874633789
+        },
+        "accept_wrong_missed_hallucination": {
+          "n": 12,
+          "mean_confidence": 0.8716165870428085,
+          "median_confidence": 0.9539660811424255
+        },
+        "correct_wrong_false_positive": {
+          "n": 112,
+          "mean_confidence": 0.9768437668681145,
+          "median_confidence": 0.9900828003883362
+        },
+        "correct_correct_positive": {
+          "n": 105,
+          "mean_confidence": 0.9876987712723868,
+          "median_confidence": 0.9945835471153259
+        }
+      }
+    },
+    "C_faiss_top1": {
+      "n": 300,
+      "attempt0_detection_metrics": {
+        "n": 300,
+        "accuracy": 0.51,
+        "hallucinated_precision": 0.43902439024390244,
+        "hallucinated_recall": 0.9230769230769231,
+        "hallucinated_f1": 0.5950413223140497,
+        "not_hallucinated_precision": 0.8333333333333334,
+        "not_hallucinated_recall": 0.2459016393442623,
+        "not_hallucinated_f1": 0.379746835443038,
+        "macro_f1": 0.48739407887854386,
+        "confusion_matrix": {
+          "tp": 108,
+          "fp": 138,
+          "fn": 9,
+          "tn": 45
+        }
+      },
+      "final_outcome_metrics": {
+        "n": 300,
+        "accuracy": 0.5366666666666666,
+        "hallucinated_precision": 0.4525862068965517,
+        "hallucinated_recall": 0.8974358974358975,
+        "hallucinated_f1": 0.6017191977077363,
+        "not_hallucinated_precision": 0.8235294117647058,
+        "not_hallucinated_recall": 0.30601092896174864,
+        "not_hallucinated_f1": 0.446215139442231,
+        "macro_f1": 0.5239671685749836,
+        "confusion_matrix": {
+          "tp": 105,
+          "fp": 127,
+          "fn": 12,
+          "tn": 56
+        }
+      },
+      "decision_rates": {
+        "n": 300,
+        "attempt0_accept_rate": 0.18,
+        "attempt0_correct_rate": 0.82,
+        "attempt0_abstain_rate": 0.0,
+        "final_accept_rate": 0.22666666666666666,
+        "final_abstain_rate": 0.7733333333333333,
+        "correction_attempted_rate": 0.82,
+        "correction_success_rate_among_attempted": 0.056910569105691054,
+        "max_attempts_reached_rate": 0.7733333333333333
+      },
+      "correction_outcome_categories": {
+        "hallucinated_corrected_successfully": 3,
+        "not_hallucinated_degraded": 127,
+        "hallucinated_still_flagged": 105,
+        "not_hallucinated_preserved": 56,
+        "hallucinated_missed": 9
+      },
+      "unnecessary_correction_count": 138,
+      "n_failed_responses": 0,
+      "confidence_by_outcome": {
+        "accept_correct_negative": {
+          "n": 45,
+          "mean_confidence": 0.8554438405566746,
+          "median_confidence": 0.8832359910011292
+        },
+        "accept_wrong_missed_hallucination": {
+          "n": 9,
+          "mean_confidence": 0.796993268860711,
+          "median_confidence": 0.8227594494819641
+        },
+        "correct_wrong_false_positive": {
+          "n": 138,
+          "mean_confidence": 0.9152735450129578,
+          "median_confidence": 0.9627256393432617
+        },
+        "correct_correct_positive": {
+          "n": 108,
+          "mean_confidence": 0.9448048185419153,
+          "median_confidence": 0.9817793965339661
+        }
+      }
+    }
+  },
+  "condition_D_no_correction_reused_full_2700": {
+    "n": 2700,
+    "accuracy": 0.5588888888888889,
+    "hallucinated_precision": 0.42970521541950113,
+    "hallucinated_recall": 0.8038176033934252,
+    "hallucinated_f1": 0.560029553010713,
+    "not_hallucinated_precision": 0.8023504273504274,
+    "not_hallucinated_recall": 0.42743312464428,
+    "not_hallucinated_f1": 0.5577422948384702,
+    "macro_f1": 0.5588859239245916,
+    "confusion_matrix": {
+      "tp": 758,
+      "fp": 1006,
+      "fn": 185,
+      "tn": 751
+    }
+  },
+  "condition_E_verify_only_reused_full_2700": {
+    "n": 2700,
+    "accuracy": 0.4874074074074074,
+    "hallucinated_precision": 0.3927007299270073,
+    "hallucinated_recall": 0.855779427359491,
+    "hallucinated_f1": 0.5383589059372915,
+    "not_hallucinated_precision": 0.7891472868217054,
+    "not_hallucinated_recall": 0.2896983494593056,
+    "not_hallucinated_f1": 0.4238134887593672,
+    "macro_f1": 0.48108619734832936,
+    "confusion_matrix": {
+      "tp": 807,
+      "fp": 1248,
+      "fn": 136,
+      "tn": 509
+    }
+  },
+  "cross_validation_subset_A_vs_step19_full": {
+    "n_compared": 300,
+    "matched": 300,
+    "mismatched": 0,
+    "match_rate": 1.0,
+    "mismatch_examples": [],
+    "note": "Condition A reruns the SAME architecture as Step 19's Condition B_generated on the same response_ids, using the same frozen deterministic configuration - a high match rate confirms determinism/consistency across independent runs, not a new finding."
+  },
+  "evidence_movement": {
+    "A_vs_B_no_reranker": {
+      "n": 300,
+      "changed_rate": 1.0,
+      "n_changed": 300
+    },
+    "A_vs_C_faiss_top1": {
+      "n": 300,
+      "changed_rate": 1.0,
+      "n_changed": 300
+    }
+  },
+  "verifier_overconfidence_full_2700_reused": {
+    "accept_correct_negative": {
+      "n": 751,
+      "mean_confidence": 0.8332300726646749,
+      "median_confidence": 0.875361442565918
+    },
+    "accept_wrong_missed_hallucination": {
+      "n": 185,
+      "mean_confidence": 0.8205675031687762,
+      "median_confidence": 0.8723474144935608
+    },
+    "correct_wrong_false_positive": {
+      "n": 1006,
+      "mean_confidence": 0.9714716823982671,
+      "median_confidence": 0.9887906312942505
+    },
+    "correct_correct_positive": {
+      "n": 758,
+      "mean_confidence": 0.9818550289306288,
+      "median_confidence": 0.9913892149925232
+    }
+  },
+  "truthfulqa_secondary_observations": {
+    "mc_scores_overall": {
+      "mc1_accuracy": 0.34050632911392403,
+      "mc1_n": 790,
+      "mc2_accuracy": 0.5505488308164534,
+      "mc2_n": 790,
+      "mc0_accuracy": 0.4417721518987342,
+      "mc0_n": 790
+    },
+    "free_form_decision_rates_overall": {
+      "n": 790,
+      "attempt0_accept_rate": 0.8,
+      "attempt0_correct_rate": 0.2,
+      "attempt0_abstain_rate": 0.0,
+      "final_accept_rate": 0.9531645569620253,
+      "final_abstain_rate": 0.04683544303797468,
+      "correction_attempted_rate": 0.2,
+      "correction_success_rate_among_attempted": 0.7658227848101266,
+      "max_attempts_reached_rate": 0.04683544303797468
+    },
+    "note": "Reused directly from Step 20's truthfulqa_eval_results.json - not recomputed, not rerun."
+  },
+  "reproducibility_check": {
+    "subset_size": 10,
+    "identical_across_two_reruns": true
+  }
+}

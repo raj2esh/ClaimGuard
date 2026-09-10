@@ -1,0 +1,100 @@
+{
+  "model_identifiers": {
+    "generator": "Qwen/Qwen3-8B",
+    "verifier": "<PROJECT_ROOT>/experiments/verifier_binary_final/final",
+    "reranker": "BAAI/bge-reranker-large"
+  },
+  "config": {
+    "max_correction_attempts": 2,
+    "pipeline": {
+      "retrieval_top_k": 20,
+      "rerank_top_n": 5,
+      "verifier_max_length": 256
+    },
+    "decision_policy": {
+      "entailment_threshold": 0.5,
+      "contradiction_threshold": 0.5
+    },
+    "generation": {
+      "max_new_tokens": 256,
+      "do_sample": false,
+      "seed": 42
+    }
+  },
+  "query_results": [
+    {
+      "query": "What is the capital of France?",
+      "final_decision": "ACCEPT",
+      "status": "completed",
+      "termination_reason": "accepted",
+      "total_attempts": 1,
+      "correction_occurred": false,
+      "final_answer_preview": "The capital of France is Paris.",
+      "attempts": [
+        {
+          "attempt_number": 0,
+          "step16_decision": "SUPPORTED",
+          "mapped_decision": "ACCEPT",
+          "confidence": 0.999208390712738,
+          "num_evidence": 5,
+          "answer_preview": "The capital of France is Paris."
+        }
+      ],
+      "total_latency_seconds": 9.346731901168823
+    },
+    {
+      "query": "Where was the Eiffel Tower built?",
+      "final_decision": "ACCEPT",
+      "status": "completed",
+      "termination_reason": "accepted",
+      "total_attempts": 1,
+      "correction_occurred": false,
+      "final_answer_preview": "The Eiffel Tower was built in **Paris, France**. It is located on the **Champ de Mars** across the **Seine River** from the **Invalides** and is one of the most iconic landmarks of the city.",
+      "attempts": [
+        {
+          "attempt_number": 0,
+          "step16_decision": "SUPPORTED",
+          "mapped_decision": "ACCEPT",
+          "confidence": 0.9910145401954651,
+          "num_evidence": 5,
+          "answer_preview": "The Eiffel Tower was built in **Paris, France**. It is located on the **Champ de Mars** across the **Seine River** from the **Invalides** and is one o"
+        }
+      ],
+      "total_latency_seconds": 1.9684548377990723
+    },
+    {
+      "query": "What year did the first person land on the Moon?",
+      "final_decision": "ACCEPT",
+      "status": "completed",
+      "termination_reason": "accepted",
+      "total_attempts": 1,
+      "correction_occurred": false,
+      "final_answer_preview": "The first person to land on the Moon was **Neil Armstrong**, and this historic event occurred on **July 20, 1969**. Armstrong became the first human to set foot on the lunar surface when he stepped ou",
+      "attempts": [
+        {
+          "attempt_number": 0,
+          "step16_decision": "SUPPORTED",
+          "mapped_decision": "ACCEPT",
+          "confidence": 0.9971103668212891,
+          "num_evidence": 5,
+          "answer_preview": "The first person to land on the Moon was **Neil Armstrong**, and this historic event occurred on **July 20, 1969**. Armstrong became the first human t"
+        }
+      ],
+      "total_latency_seconds": 3.490652084350586
+    }
+  ],
+  "deterministic_repeatability": {
+    "query": "What is the capital of France?",
+    "identical_across_two_runs": true
+  },
+  "gpu_snapshots_gb_per_query": [
+    17.7439546585083,
+    17.7439546585083,
+    17.7439546585083
+  ],
+  "gpu_growth_gb": 0.0,
+  "model_load_seconds": 17.848599672317505,
+  "peak_gpu_memory_gb": 17.810369968414307,
+  "test_result": "PASS",
+  "timestamp": "2026-09-03T16:50:27.856439+00:00"
+}

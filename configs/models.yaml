@@ -1,0 +1,47 @@
+# ClaimGuard model registry.
+#
+# Model identifiers are configured HERE, not hard-coded in Python — code should
+# read this file rather than embedding repo IDs directly.
+#
+# NOTE: creating/editing this file does not download or load any model.
+# Selections and rationale: see CLAIMGUARD_MODEL_SELECTION.md.
+
+generator:
+  primary:
+    name: "Qwen/Qwen3-8B"
+    dtype: "bfloat16"
+    device: "cuda"
+    max_seq_length: 8192
+    batch_size: 1
+
+  secondary:
+    name: "meta-llama/Llama-3.1-8B-Instruct"
+    dtype: "bfloat16"
+    device: "cuda"
+    max_seq_length: 8192
+    batch_size: 1
+
+embedding:
+  primary:
+    name: "BAAI/bge-large-en-v1.5"
+    dtype: "float16"
+    device: "cuda"
+    max_seq_length: 512
+    batch_size: 32
+    normalize_embeddings: true
+
+reranker:
+  primary:
+    name: "BAAI/bge-reranker-large"
+    dtype: "float16"
+    device: "cuda"
+    max_seq_length: 512
+    batch_size: 16
+
+verifier:
+  primary:
+    name: "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli"
+    dtype: "bfloat16"
+    device: "cuda"
+    max_seq_length: 256
+    batch_size: 16

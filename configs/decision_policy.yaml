@@ -1,0 +1,46 @@
+# ClaimGuard evidence-decision-policy configuration (Step 16).
+#
+# Characterizes the Step 15 integrated pipeline's verifier-overconfidence
+# behavior on non-gold evidence and defines a DETERMINISTIC (no learned
+# parameters) downstream decision policy: SUPPORTED / CONTRADICTED /
+# ABSTAIN. The binary verifier trained in Step 12 is unchanged - this
+# config controls only the policy layered on top of it.
+#
+# Reuses the IDENTICAL eval query set as Steps 13/14/15 (see `evaluation`
+# below - same seed/sample_size/source, cross-checked against Step 13's
+# saved results before any analysis runs).
+
+pipeline:
+  # Unchanged from Step 15 (configs/integration_baseline.yaml) - Step 16
+  # does not alter retrieval/reranking/verifier settings.
+  retrieval_top_k: 20
+  rerank_top_n: 5
+  verifier_max_length: 256
+
+verifier:
+  checkpoint_dir: "experiments/verifier_binary_final/final"
+
+evaluation:
+  seed: 42
+  sample_size: 2000
+  source: "fever_train"
+
+# Fixed thresholds swept for characterization ONLY - Step 16 does not
+# select or declare a "best" threshold; final threshold selection is
+# explicitly deferred to a separate future controlled dev-set experiment.
+thresholds_swept: [0.50, 0.60, 0.70, 0.80, 0.90, 0.95]
+
+calibration:
+  n_bins: 10   # fixed bins: [0.0,0.1) ... [0.9,1.0]
+  # ECE/Brier are computed ONLY over gold-evidence candidates - see
+  # claimguard.decision.calibration module docstring for why non-gold
+  # candidates have no legitimate ground-truth "correct" label.
+
+decision_policy:
+  # Carried over UNCHANGED from Step 15's initial (never-tuned)
+  # entailment_threshold - this is the default policy instantiated for
+  # the abstention-rate/false-support-rate report, not a claimed-optimal
+  # setting.
+  entailment_threshold: 0.5
+  contradiction_threshold: 0.5
+  require_margin: null   # optional evidence-consistency variant, off by default

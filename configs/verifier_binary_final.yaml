@@ -1,0 +1,63 @@
+# ClaimGuard FINAL binary verifier configuration (Step 12).
+#
+# Supersedes configs/verifier_baseline.yaml (Step 9's preliminary,
+# HaluEval-only baseline - left unmodified, not overwritten). This config
+# trains the FIRST FINAL binary (entailment/contradiction) verifier on the
+# full Step 10/11 leakage-safe pool: FEVER SUPPORTS/REFUTES (with resolved
+# Wikipedia-sentence premise text, Step 10) PLUS HaluEval qa/dialogue/
+# summarization (post contamination-exclusion, Step 8).
+#
+# Per Step 11's finalized protocol: this verifier is explicitly BINARY.
+# There is no neutral class in the current training pool (0 examples,
+# investigated exhaustively in Step 11 - no legitimate source exists).
+# num_labels=2 here is not a placeholder pending a future neutral class -
+# it is the scientifically correct architecture for what this data can
+# currently support. See src/claimguard/verifier/binary_model.py for how
+# the 2-class head is constructed (NOT the pretrained model's original
+# 3-class head trained on 2 of its 3 labels) and PROJECT_REPORT.md Step 12
+# for the full rationale.
+
+model:
+  name: "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli"
+  num_labels: 2
+  label_order: ["entailment", "contradiction"]  # binary protocol - see binary_model.BINARY_LABEL2ID
+  max_length: 256
+  dtype: "bfloat16"
+
+data:
+  # Consumes the Step 10/11 pool files directly - does not rebuild the dataset.
+  pool_train_path: "data/processed/verifier_pool/train.jsonl"
+  pool_dev_path: "data/processed/verifier_pool/dev.jsonl"
+  require_premise_text: true  # filters to premise-text-available records only (now includes FEVER, Step 10)
+  manifest_path: "data/processed/dataset_manifest.json"
+  manifest_version_expected: "1.3"
+
+# Starting point unchanged from Step 9's conservative baseline config -
+# this run establishes the final binary baseline, it does not optimize it.
+# No hyperparameter sweep, no class weighting, no oversampling/downsampling.
+training:
+  seed: 42
+  batch_size: 16
+  gradient_accumulation_steps: 2
+  learning_rate: 2.0e-5
+  weight_decay: 0.01
+  num_epochs: 1
+  warmup_ratio: 0.06
+  lr_scheduler_type: "linear"
+  mixed_precision: "bf16"
+  max_grad_norm: 1.0
+  eval_steps: 500
+  save_steps: 500
+  save_total_limit: 2
+  logging_steps: 50
+  metric_for_best_model: "macro_f1"
+  greater_is_better: true
+  output_dir: "experiments/verifier_binary_final"
+
+smoke_test:
+  max_train_samples: 32
+  max_dev_samples: 16
+  max_steps: 5
+  eval_steps: 2
+  save_steps: 2
+  logging_steps: 1

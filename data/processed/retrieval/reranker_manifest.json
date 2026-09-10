@@ -1,0 +1,28 @@
+{
+  "reranker_info": {
+    "model_name": "BAAI/bge-reranker-large",
+    "requested_dtype": "float16",
+    "actual_dtype": "torch.float16",
+    "requested_device": "cuda",
+    "actual_device": "cuda:0",
+    "max_length": 512,
+    "batch_size": 16,
+    "n_params": 559891457,
+    "activation_fn": "Sigmoid",
+    "score_type": "probability_like_sigmoid",
+    "score_direction": "higher_is_more_relevant"
+  },
+  "pipeline_config": {
+    "retrieval_top_k": 20,
+    "rerank_top_n": 5
+  },
+  "evaluation_config": {
+    "seed": 42,
+    "sample_size": 2000,
+    "source": "fever_train"
+  },
+  "python_version": "3.12.14",
+  "torch_version": "2.11.0+cu128",
+  "gpu_name": "NVIDIA RTX PRO 5000 Blackwell",
+  "index_vector_count": 109350
+}

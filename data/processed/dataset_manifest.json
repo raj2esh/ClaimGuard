@@ -1,0 +1,511 @@
+{
+  "version": "1.3",
+  "protocol_step": "11 (supersedes the Step 10/1.2 manifest - see PROJECT_REPORT.md Step 11 for what changed: a systematic investigation of every already-acquired dataset for a legitimate neutral-class source, concluding that none exists and that the verifier training pool is correctly a BINARY (entailment/contradiction) dataset, not a 3-way dataset with a temporarily-empty third class - see verifier_dataset_status below)",
+  "generated_by": "scripts/build_dataset_manifest.py",
+  "contamination_report": "data/processed/contamination_report.json (see scripts/detect_contamination.py)",
+  "seed": 42,
+  "dev_ratio": 0.1,
+  "verifier_label_scheme": [
+    "entailment",
+    "neutral",
+    "contradiction"
+  ],
+  "datasets": {
+    "fever": {
+      "source": "fever/fever (Hugging Face, config=default, via refs/convert/parquet)",
+      "license": "CC BY-SA 3.0 + GNU FDL",
+      "normalization_module": "src/claimguard/datasets/fever.py",
+      "raw_location": "data/raw/fever/",
+      "wiki_pages_index": "data/processed/fever/wiki_pages_index.sqlite (Step 10)",
+      "wiki_resolution_report": "data/processed/fever/wiki_resolution_report.json (Step 10)",
+      "processed_sample_location": "data/processed/fever/sample/sample.jsonl",
+      "premise_resolution_status": {
+        "premise_text_currently_available": true,
+        "wiki_pages_index_present": true,
+        "resolution_coverage": {
+          "total_claims": 145449,
+          "status_counts": {
+            "resolved": 109810,
+            "no_evidence_annotation": 35639
+          },
+          "status_by_label": {
+            "SUPPORTS": {
+              "resolved": 80035
+            },
+            "REFUTES": {
+              "resolved": 29775
+            },
+            "NOT ENOUGH INFO": {
+              "no_evidence_annotation": 35639
+            }
+          },
+          "usable_for_training": 109810,
+          "neutral_class_available_from_fever": 0
+        },
+        "conclusion": "109,810 of 145,449 FEVER train claims (SUPPORTS/REFUTES with fully-resolved evidence) now have real, resolved Wikipedia sentence premise text (Step 10) - up from 0 in Step 8/9. NOT ENOUGH INFO claims remain structurally unresolvable (no evidence annotation exists in FEVER's own data at all) - see PROJECT_REPORT.md Step 10. The verifier pool's neutral-class contribution from FEVER therefore remains 0 claims."
+      },
+      "splits": {
+        "train": {
+          "role": "verifier_training_dev_candidate",
+          "raw_dataset_size": 145449,
+          "eligible_records": 145449,
+          "usable_records_with_resolved_premise": 109810,
+          "excluded_no_evidence_annotation": 35639,
+          "excluded_unresolved": 0,
+          "excluded_contamination_records": 0,
+          "record_count": 145449,
+          "label_distribution": {
+            "SUPPORTS": 80035,
+            "REFUTES": 29775,
+            "NOT ENOUGH INFO": 35639
+          },
+          "verifier_label_distribution": {
+            "entailment": 80035,
+            "contradiction": 29775,
+            "neutral": 35639
+          },
+          "eligible_for_verifier_training": true,
+          "eligible_for_end_to_end_evaluation": false,
+          "id_semantics": "example_id = raw FEVER claim 'id', unique within split",
+          "caveats": [
+            "As of Step 10, SUPPORTS/REFUTES claims with fully-resolved evidence (109,810/109,810 - 100%) have real, resolved Wikipedia sentence premise text - see premise_resolution_status above. NOT ENOUGH INFO claims (35,639) still have NO evidence annotation in FEVER's own data at all and are excluded from the trainable pool (not coerced) - FEVER therefore still contributes 0 neutral-label training examples."
+          ]
+        },
+        "validation": {
+          "role": "excluded",
+          "eligible_for_verifier_training": false,
+          "eligible_for_end_to_end_evaluation": false,
+          "caveats": [
+            "19,998 blank-label rows, 33 casing-variant labels, ~19,037 exact duplicate rows (~24%), overlaps `test` by 9,999 claim IDs (Step 6A)."
+          ]
+        },
+        "test": {
+          "role": "excluded",
+          "eligible_for_verifier_training": false,
+          "eligible_for_end_to_end_evaluation": false,
+          "caveats": [
+            "19,998 blank-label rows mixed in, overlaps `validation` by 9,999 claim IDs (Step 6A)."
+          ]
+        }
+      }
+    },
+    "halueval": {
+      "source": "RUCAIBox/HaluEval (GitHub, main branch)",
+      "license": "MIT",
+      "normalization_module": "src/claimguard/datasets/halueval.py",
+      "raw_location": "data/raw/halueval/",
+      "processed_sample_location": "data/processed/halueval/sample/sample.jsonl",
+      "subsets": {
+        "qa": {
+          "role": "verifier_training_dev_candidate",
+          "raw_dataset_size": 20000,
+          "eligible_records": 20000,
+          "excluded_contamination_records": 0,
+          "exclusion_reason": null,
+          "record_count": 20000,
+          "label_distribution": {
+            "not_hallucinated": 10000,
+            "hallucinated": 10000
+          },
+          "eligible_for_verifier_training": true,
+          "eligible_for_end_to_end_evaluation": false,
+          "id_semantics": "example_id = f'{subset}_{raw_index}_{label}', raw_index unique per subset",
+          "caveats": []
+        },
+        "dialogue": {
+          "role": "verifier_training_dev_candidate",
+          "raw_dataset_size": 20000,
+          "eligible_records": 20000,
+          "excluded_contamination_records": 0,
+          "exclusion_reason": null,
+          "record_count": 20000,
+          "label_distribution": {
+            "not_hallucinated": 10000,
+            "hallucinated": 10000
+          },
+          "eligible_for_verifier_training": true,
+          "eligible_for_end_to_end_evaluation": false,
+          "id_semantics": "example_id = f'{subset}_{raw_index}_{label}', raw_index unique per subset",
+          "caveats": []
+        },
+        "summarization": {
+          "role": "verifier_training_dev_candidate",
+          "raw_dataset_size": 20000,
+          "eligible_records": 19800,
+          "excluded_contamination_records": 200,
+          "exclusion_reason": "ragtruth_test_source_overlap",
+          "record_count": 20000,
+          "label_distribution": {
+            "not_hallucinated": 10000,
+            "hallucinated": 10000
+          },
+          "eligible_for_verifier_training": true,
+          "eligible_for_end_to_end_evaluation": false,
+          "id_semantics": "example_id = f'{subset}_{raw_index}_{label}', raw_index unique per subset",
+          "caveats": [
+            "100 raw records (200 normalized pair-expanded records) excluded - see data/processed/contamination_report.json - their `document` text exactly matches a RAGTruth test Summary source article (both CNN/DailyMail-sourced)."
+          ]
+        },
+        "general": {
+          "role": "excluded_from_verifier_pool",
+          "raw_dataset_size": 4507,
+          "eligible_records": 0,
+          "excluded_contamination_records": 0,
+          "record_count": 4507,
+          "label_distribution": {
+            "not_hallucinated": 3692,
+            "hallucinated": 815
+          },
+          "eligible_for_verifier_training": false,
+          "eligible_for_end_to_end_evaluation": false,
+          "reason": "HaluEval 'general' records have no premise/grounding field (context is always {} - see Step 6B); cannot be safely represented as a (premise, hypothesis, label) NLI training pair without inventing a premise absent from the source data. Excluded from the verifier training pool; candidate for a future correction-trigger classifier that does not require a premise.",
+          "caveats": [
+            "Retained here as normalized/available data, not discarded - just not routed into the NLI verifier training pool. Also checked against RAGTruth test / TruthfulQA in the Step 8 contamination sweep - no overlap found."
+          ]
+        }
+      }
+    },
+    "ragtruth": {
+      "source": "ParticleMedia/RAGTruth (GitHub, main branch)",
+      "license": "MIT",
+      "normalization_module": "src/claimguard/datasets/ragtruth.py",
+      "raw_location": "data/raw/ragtruth/",
+      "processed_sample_location": "data/processed/ragtruth/sample/sample.jsonl",
+      "splits": {
+        "train": {
+          "role": "not_used_deferred",
+          "record_count": 15090,
+          "eligible_for_verifier_training": false,
+          "eligible_for_end_to_end_evaluation": false,
+          "caveats": [
+            "Step 6C confirmed source-disjoint from `test` and safe to use later, but the Step 3/4 protocol names only FEVER and HaluEval as training/development candidates - inclusion of ragtruth_train is deferred, not decided, by this manifest. NOT in ALLOWED_TRAINING_SOURCES."
+          ]
+        },
+        "test": {
+          "role": "evaluation_reserved",
+          "record_count": 2700,
+          "eligible_for_verifier_training": false,
+          "eligible_for_end_to_end_evaluation": true,
+          "hard_blocked_from_training": true,
+          "caveats": [
+            "PRIMARY end-to-end evaluation dataset (Experiment 3). Never enters training/dev - enforced in code via claimguard.datasets.manifest.RoleViolationError and ragtruth.get_eval_set()/assert_no_train_test_leakage(). Step 8: 100 of these source items (600 responses) were found to share source documents with HaluEval summarization training data - RAGTruth test ITSELF was NOT modified; the corresponding HaluEval records were excluded from training instead."
+          ]
+        }
+      }
+    },
+    "truthfulqa": {
+      "source": "sylinrl/TruthfulQA (GitHub, main branch)",
+      "license": "Apache-2.0",
+      "normalization_module": "src/claimguard/datasets/truthfulqa.py",
+      "raw_location": "data/raw/truthfulqa/",
+      "processed_sample_location": "data/processed/truthfulqa/sample/sample.jsonl",
+      "role": "evaluation_only",
+      "record_count": 790,
+      "type_distribution": {
+        "Adversarial": 425,
+        "Non-Adversarial": 365
+      },
+      "eligible_for_verifier_training": false,
+      "eligible_for_end_to_end_evaluation": true,
+      "hard_blocked_from_training": true,
+      "caveats": [
+        "No official train/validation/test split exists (Step 6D, verified empirically) - the entire 790-question set is evaluation-only. No artificial split was created for it."
+      ]
+    }
+  },
+  "contamination": {
+    "detection_method": "exact normalized (lowercase, whitespace-collapsed, stripped) text match, field-aware and source-level identified (claimguard.datasets.manifest.find_ragtruth_summarization_contamination) - not a near-duplicate/fuzzy check",
+    "finding": {
+      "audit_record_count": 600,
+      "unique_halueval_raw_indices_affected": 100,
+      "unique_ragtruth_source_ids_affected": 100,
+      "unique_ragtruth_test_responses_affected": 600,
+      "explanation": "100 unique HaluEval summarization documents exactly match 100 unique RAGTruth test Summary source articles (1:1 on both sides - no duplicate documents among the matches). Each RAGTruth source_id has exactly 6 responses (Step 6C), and all 6 are in `test` for these sources (source-disjoint splits, Step 6C) - so 100 source_ids x 6 responses = 600 affected RAGTruth test responses, matching the audit-record count exactly."
+    },
+    "mitigation": {
+      "decision": "Exclude the 100 affected HaluEval summarization raw records (200 normalized pair-expanded records) from the verifier training/dev pool. RAGTruth test was NOT modified.",
+      "reason_code": "ragtruth_test_source_overlap",
+      "mechanism": "claimguard.datasets.manifest.contaminated_halueval_summarization_raw_indices() computes the exclusion set fresh from the raw data on every call (not a hard-coded row-number list); build_training_pool(exclude_contamination=True, the default) removes matching PoolRecords by group_key.",
+      "records_excluded": 200,
+      "pool_size_before_exclusion": 169810,
+      "pool_size_after_exclusion": 169610,
+      "post_mitigation_verification": {
+        "remaining_premise_overlap_with_ragtruth_source_info_text": 0
+      }
+    },
+    "cross_dataset_sweep": {
+      "fever_train": {
+        "vs_ragtruth_test": {
+          "response_text": {
+            "premise_overlap": 0,
+            "hypothesis_overlap": 0
+          },
+          "source_info_text": {
+            "premise_overlap": 0,
+            "hypothesis_overlap": 0
+          }
+        },
+        "vs_truthfulqa": {
+          "question": {
+            "premise_overlap": 0,
+            "hypothesis_overlap": 0
+          },
+          "answer": {
+            "premise_overlap": 0,
+            "hypothesis_overlap": 0
+          }
+        }
+      },
+      "halueval_qa": {
+        "vs_ragtruth_test": {
+          "response_text": {
+            "premise_overlap": 0,
+            "hypothesis_overlap": 0
+          },
+          "source_info_text": {
+            "premise_overlap": 0,
+            "hypothesis_overlap": 0
+          }
+        },
+        "vs_truthfulqa": {
+          "question": {
+            "premise_overlap": 0,
+            "hypothesis_overlap": 0
+          },
+          "answer": {
+            "premise_overlap": 0,
+            "hypothesis_overlap": 70
+          }
+        }
+      },
+      "halueval_dialogue": {
+        "vs_ragtruth_test": {
+          "response_text": {
+            "premise_overlap": 0,
+            "hypothesis_overlap": 0
+          },
+          "source_info_text": {
+            "premise_overlap": 0,
+            "hypothesis_overlap": 0
+          }
+        },
+        "vs_truthfulqa": {
+          "question": {
+            "premise_overlap": 0,
+            "hypothesis_overlap": 0
+          },
+          "answer": {
+            "premise_overlap": 0,
+            "hypothesis_overlap": 1
+          }
+        }
+      },
+      "halueval_general": {
+        "vs_ragtruth_test": {
+          "response_text": {
+            "premise_overlap": 0,
+            "hypothesis_overlap": 0
+          },
+          "source_info_text": {
+            "premise_overlap": 0,
+            "hypothesis_overlap": 0
+          }
+        },
+        "vs_truthfulqa": {
+          "question": {
+            "premise_overlap": 0,
+            "hypothesis_overlap": 0
+          },
+          "answer": {
+            "premise_overlap": 0,
+            "hypothesis_overlap": 0
+          }
+        }
+      },
+      "halueval_summarization": {
+        "vs_ragtruth_test": {
+          "response_text": {
+            "premise_overlap": 0,
+            "hypothesis_overlap": 0
+          },
+          "source_info_text": {
+            "premise_overlap": 100,
+            "hypothesis_overlap": 0
+          }
+        },
+        "vs_truthfulqa": {
+          "question": {
+            "premise_overlap": 0,
+            "hypothesis_overlap": 0
+          },
+          "answer": {
+            "premise_overlap": 0,
+            "hypothesis_overlap": 0
+          }
+        }
+      }
+    },
+    "raw_data_modified": false,
+    "ragtruth_test_modified": false
+  },
+  "verifier_training_pool": {
+    "allowed_sources": [
+      "fever_train",
+      "halueval_dialogue",
+      "halueval_qa",
+      "halueval_summarization"
+    ],
+    "blocked_sources": [
+      "fever_test",
+      "fever_validation",
+      "halueval_general",
+      "ragtruth_test",
+      "ragtruth_train",
+      "truthfulqa"
+    ],
+    "raw_eligible_before_contamination_exclusion": 169810,
+    "excluded_contamination_records": 200,
+    "total_records": 169610,
+    "label_distribution": {
+      "entailment": 109935,
+      "contradiction": 59675
+    },
+    "source_distribution": {
+      "fever.train": 109810,
+      "halueval.qa": 20000,
+      "halueval.dialogue": 20000,
+      "halueval.summarization": 19800
+    },
+    "label_mapping": {
+      "fever": {
+        "SUPPORTS": {
+          "target": "entailment",
+          "rationale": "FEVER's own definition: the evidence directly supports the claim.",
+          "cardinality": "one_to_one"
+        },
+        "REFUTES": {
+          "target": "contradiction",
+          "rationale": "FEVER's own definition: the evidence directly contradicts the claim.",
+          "cardinality": "one_to_one"
+        },
+        "NOT ENOUGH INFO": {
+          "target": "neutral",
+          "rationale": "FEVER's own definition: evidence is insufficient to decide.",
+          "cardinality": "one_to_one"
+        }
+      },
+      "halueval_pair_subsets": {
+        "not_hallucinated": {
+          "target": "entailment",
+          "rationale": "The reference (right_answer/right_response/right_summary) is, by construction, grounded in and consistent with the given context.",
+          "cardinality": "one_to_one"
+        },
+        "hallucinated": {
+          "target": "contradiction",
+          "rationale": "HaluEval's generation methodology produces content that is factually incorrect relative to the grounding, which skews toward direct contradiction rather than mere unsupportedness.",
+          "cardinality": "one_to_one",
+          "caveat": "APPROXIMATION: HaluEval's binary 'hallucinated' label conflates what FEVER separately calls REFUTES (direct contradiction) and NOT ENOUGH INFO (unsupported fabrication beyond the given context). No 'neutral' examples are contributed by HaluEval as a result - see balancing notes."
+        }
+      },
+      "halueval_general": {
+        "status": "excluded",
+        "reason": "HaluEval 'general' records have no premise/grounding field (context is always {} - see Step 6B); cannot be safely represented as a (premise, hypothesis, label) NLI training pair without inventing a premise absent from the source data. Excluded from the verifier training pool; candidate for a future correction-trigger classifier that does not require a premise."
+      }
+    },
+    "dev_split": {
+      "strategy": "group-key-based deterministic split (grouping keeps HaluEval's contrastive pair records together; FEVER claims are already atomic groups); shuffled with a seeded RNG, not row-random, so a pair is never split across train/dev. Contamination-excluded records are removed from the pool BEFORE this split runs, so they cannot appear in either side.",
+      "seed": 42,
+      "dev_ratio": 0.1,
+      "train_count": 152720,
+      "dev_count": 16890,
+      "train_label_distribution": {
+        "entailment": 98934,
+        "contradiction": 53786
+      },
+      "dev_label_distribution": {
+        "entailment": 11001,
+        "contradiction": 5889
+      },
+      "group_key_overlap_train_dev": 0,
+      "excluded_contamination_leaked_into_train": 0,
+      "excluded_contamination_leaked_into_dev": 0
+    },
+    "balancing": {
+      "status": "deferred",
+      "note": "Label distribution is imbalanced: 'neutral' is contributed by FEVER only (HaluEval's binary hallucinated/not_hallucinated mapping produces no 'neutral' examples). No downsampling/reweighting has been applied - this is a training-time decision (e.g. class weights, oversampling) deferred to the actual training step, not decided here. NOT changed by the Step 8 contamination exclusion."
+    },
+    "neutral_class_coverage": {
+      "count_in_pool": 0,
+      "status": "UNRESOLVED_GAP",
+      "explanation": "Step 10 achieved 100% evidence resolution for FEVER SUPPORTS/REFUTES claims (109,810/109,810), so FEVER now contributes real, resolved premise text to the pool for the first time. This does NOT close the neutral-class gap: FEVER's NOT ENOUGH INFO claims (the only source of 'neutral' in the label scheme) carry no evidence annotation in FEVER's own data at all - there is structurally nothing to resolve for them, and fabricating a premise is out of scope by design (see claimguard.datasets.fever.RESOLUTION_STATUS_NO_EVIDENCE and PROJECT_REPORT.md Step 10). HaluEval's binary hallucinated/not_hallucinated mapping also produces no 'neutral' examples. The verifier pool's 'neutral' label count is reported here exactly as observed, not smoothed over - if it is 0 (or near it), the 3-way verifier CANNOT be validated on a genuine neutral class from this pool as currently constructed; that is a real, standing limitation, not a bug in this manifest step."
+    }
+  },
+  "final_boundary_verification": {
+    "ragtruth_test_hard_blocked": true,
+    "truthfulqa_hard_blocked": true,
+    "ragtruth_train_test_leakage_check": "PASSED (re-verified above)",
+    "pool_vs_ragtruth_test_after_exclusion": {
+      "response_text": {
+        "hypothesis_overlap_count": 0,
+        "premise_overlap_count": 0
+      },
+      "source_info_text": {
+        "hypothesis_overlap_count": 0,
+        "premise_overlap_count": 0
+      }
+    },
+    "pool_vs_truthfulqa_after_exclusion": {
+      "question": {
+        "hypothesis_overlap_count": 0,
+        "premise_overlap_count": 0
+      },
+      "answer": {
+        "hypothesis_overlap_count": 70,
+        "premise_overlap_count": 0
+      }
+    },
+    "truthfulqa_overlap_still_classified_benign": true
+  },
+  "verifier_dataset_status": {
+    "intended_label_space": [
+      "entailment",
+      "neutral",
+      "contradiction"
+    ],
+    "available_label_space": [
+      "contradiction",
+      "entailment"
+    ],
+    "class_counts": {
+      "entailment": 109935,
+      "contradiction": 59675
+    },
+    "missing_classes": [
+      "neutral"
+    ],
+    "classification_mode": "binary",
+    "supports_three_way": false,
+    "rationale": "Only entailment and contradiction have examples; 'neutral' has 0. Per Step 11's investigation (see PROJECT_REPORT.md), no legitimate, non-fabricated neutral source currently exists in this project's acquired data (FEVER NOT ENOUGH INFO claims carry no evidence annotation at all; HaluEval is strictly binary; RAGTruth/TruthfulQA are evaluation-only and hard-blocked from training regardless of label content). The pool is therefore a BINARY verifier dataset, not a 3-way dataset with a temporarily-empty third class - callers must not claim 3-way training/evaluation support from this pool.",
+    "neutral_class_investigation": {
+      "fever_train_not_enough_info": {
+        "count": 35639,
+        "finding": "Verified empirically (Step 11): ALL 47,609 NOT ENOUGH INFO rows in the raw (denormalized) FEVER train file carry the pure sentinel (evidence_wiki_url='', evidence_id=-1, evidence_sentence_id=-1) with ZERO exceptions - grouped to 35,639 unique claims. Cross-checked against the authoritative FEVER documentation (fever.ai), which confirms NOT ENOUGH INFO claims are recorded with null evidence in the official release and that no officially-distributed predicted-evidence/retrieval-baseline artifact exists.",
+        "conclusion": "no_legitimate_premise_available"
+      },
+      "fever_validation_not_enough_info_anomaly": {
+        "finding": "FEVER validation (NOT a training-eligible split - excluded since Step 6A/7 for independent data-quality reasons) contains 151/13,883 NOT ENOUGH INFO rows with a non-sentinel evidence_wiki_url. Investigated: the same wiki_url ('Starrcade') appears attached to multiple unrelated claims with evidence_annotation_id=-1 - consistent with a parquet-export/indexing artifact, not genuine annotator-recorded evidence. Not used as a neutral source: both because it does not appear to be legitimate evidence, and because validation is already excluded from training for reasons unrelated to this step.",
+        "conclusion": "not_a_legitimate_source_and_out_of_scope"
+      },
+      "halueval_all_subsets": {
+        "finding": "Every HaluEval subset (qa/dialogue/summarization/general) is strictly binary (hallucinated/not_hallucinated - see claimguard.datasets.halueval.VALID_LABELS). No subset encodes an 'insufficient evidence'/'unknown' third category anywhere in the real data.",
+        "conclusion": "no_legitimate_source"
+      },
+      "ragtruth_and_truthfulqa": {
+        "finding": "Both are hard-blocked, evaluation-only datasets under the Step 3/4 research protocol (RoleViolationError on any training-pool inclusion attempt). Even if either contained neutral-shaped content, using it for training would violate the evaluation boundary this project's leakage-safety design depends on - so neither is a candidate regardless of label content.",
+        "conclusion": "protected_evaluation_only_not_a_candidate"
+      },
+      "overall_conclusion": "The current authoritative datasets do not provide a leakage-safe, premise-grounded neutral training class. The verifier training pool is a binary (entailment/contradiction) dataset. See PROJECT_REPORT.md Step 11 for the full investigation."
+    },
+    "investigation_report": "PROJECT_REPORT.md Step 11"
+  }
+}

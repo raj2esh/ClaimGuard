@@ -1,0 +1,39 @@
+# ClaimGuard correction/regeneration loop baseline configuration (Step 18).
+#
+# Bounded pipeline:
+#     query -> Qwen3-8B -> candidate -> retrieve -> rerank -> verify ->
+#         Step 16 decision policy -> ACCEPT / CORRECT (bounded regenerate) / ABSTAIN
+#
+# ENGINEERING/INTEGRATION validation config - NOT tuned against RAGTruth or
+# TruthfulQA (both reserved for later steps, out of scope here). Retrieval/
+# reranking/verifier settings mirror configs/integration_baseline.yaml
+# (Step 15) UNCHANGED; decision-policy thresholds mirror
+# configs/decision_policy.yaml (Step 16) UNCHANGED; generation settings
+# mirror configs/generator_baseline.yaml (Step 17) UNCHANGED. Repeated here
+# explicitly for a self-contained correction-loop config, kept consistent
+# with those source configs by tests/test_correction.py (fails loudly on
+# drift rather than silently diverging).
+
+# Conservative engineering baseline - NOT tuned against any evaluation
+# dataset. Bounds the loop to at most 1 + max_correction_attempts total
+# generations.
+max_correction_attempts: 2
+
+pipeline:
+  retrieval_top_k: 20        # unchanged from Step 15 (configs/integration_baseline.yaml)
+  rerank_top_n: 5            # unchanged from Step 15
+  verifier_max_length: 256   # unchanged from Step 9/12/15
+
+decision_policy:
+  # Must match configs/decision_policy.yaml's decision_policy section.
+  entailment_threshold: 0.5
+  contradiction_threshold: 0.5
+
+generation:
+  # Must match configs/generator_baseline.yaml's generation section.
+  max_new_tokens: 256
+  do_sample: false
+  seed: 42
+
+verifier:
+  checkpoint_dir: "experiments/verifier_binary_final/final"   # unchanged from Step 12/15/16

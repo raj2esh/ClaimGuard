@@ -1,0 +1,252 @@
+{
+  "config": {
+    "retrieval_top_k": 20,
+    "rerank_top_n": 5,
+    "verifier_max_length": 256,
+    "eval_seed": 42,
+    "eval_sample_size": 2000,
+    "thresholds_swept": [
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      0.95
+    ]
+  },
+  "eval_set_identical_to_step13": true,
+  "threshold_analysis_candidate_level": [
+    {
+      "threshold": 0.5,
+      "tp": 1009,
+      "fp": 6150,
+      "fn": 15,
+      "tn": 2826,
+      "precision": 0.1409414722726638,
+      "recall": 0.9853515625,
+      "f1": 0.24660882316998656,
+      "false_positive_rate": 0.6851604278074866,
+      "false_negative_rate": 0.0146484375,
+      "n_accepted_support": 7159,
+      "n_rejected": 2841
+    },
+    {
+      "threshold": 0.6,
+      "tp": 1007,
+      "fp": 5994,
+      "fn": 17,
+      "tn": 2982,
+      "precision": 0.1438365947721754,
+      "recall": 0.9833984375,
+      "f1": 0.2509657320872274,
+      "false_positive_rate": 0.6677807486631016,
+      "false_negative_rate": 0.0166015625,
+      "n_accepted_support": 7001,
+      "n_rejected": 2999
+    },
+    {
+      "threshold": 0.7,
+      "tp": 1005,
+      "fp": 5811,
+      "fn": 19,
+      "tn": 3165,
+      "precision": 0.14744718309859156,
+      "recall": 0.9814453125,
+      "f1": 0.25637755102040816,
+      "false_positive_rate": 0.6473930481283422,
+      "false_negative_rate": 0.0185546875,
+      "n_accepted_support": 6816,
+      "n_rejected": 3184
+    },
+    {
+      "threshold": 0.8,
+      "tp": 1003,
+      "fp": 5565,
+      "fn": 21,
+      "tn": 3411,
+      "precision": 0.1527101096224117,
+      "recall": 0.9794921875,
+      "f1": 0.2642255005268704,
+      "false_positive_rate": 0.6199866310160428,
+      "false_negative_rate": 0.0205078125,
+      "n_accepted_support": 6568,
+      "n_rejected": 3432
+    },
+    {
+      "threshold": 0.9,
+      "tp": 996,
+      "fp": 5189,
+      "fn": 28,
+      "tn": 3787,
+      "precision": 0.16103476151980597,
+      "recall": 0.97265625,
+      "f1": 0.27632126508531,
+      "false_positive_rate": 0.5780971479500892,
+      "false_negative_rate": 0.02734375,
+      "n_accepted_support": 6185,
+      "n_rejected": 3815
+    },
+    {
+      "threshold": 0.95,
+      "tp": 990,
+      "fp": 4797,
+      "fn": 34,
+      "tn": 4179,
+      "precision": 0.17107309486780714,
+      "recall": 0.966796875,
+      "f1": 0.29070621054177065,
+      "false_positive_rate": 0.5344251336898396,
+      "false_negative_rate": 0.033203125,
+      "n_accepted_support": 5787,
+      "n_rejected": 4213
+    }
+  ],
+  "evidence_selection_comparison": {
+    "strategy_a_faiss_top1_hit_rate": 0.28,
+    "strategy_b_reranker_top1_hit_rate": 0.2445,
+    "strategy_c_verifier_max_entailment_hit_rate": 0.318,
+    "strategy_d_verifier_with_min_confidence": {
+      "0.5": {
+        "coverage": 0.8445,
+        "abstention_rate": 0.15549999999999997,
+        "precision_among_accepted": 0.35701598579040855,
+        "overall_hit_rate_incl_abstained_as_miss": 0.3015
+      },
+      "0.6": {
+        "coverage": 0.836,
+        "abstention_rate": 0.16400000000000003,
+        "precision_among_accepted": 0.36064593301435405,
+        "overall_hit_rate_incl_abstained_as_miss": 0.3015
+      },
+      "0.7": {
+        "coverage": 0.8275,
+        "abstention_rate": 0.1725,
+        "precision_among_accepted": 0.3637462235649547,
+        "overall_hit_rate_incl_abstained_as_miss": 0.301
+      },
+      "0.8": {
+        "coverage": 0.8145,
+        "abstention_rate": 0.1855,
+        "precision_among_accepted": 0.36955187231430325,
+        "overall_hit_rate_incl_abstained_as_miss": 0.301
+      },
+      "0.9": {
+        "coverage": 0.797,
+        "abstention_rate": 0.20299999999999996,
+        "precision_among_accepted": 0.3751568381430364,
+        "overall_hit_rate_incl_abstained_as_miss": 0.299
+      },
+      "0.95": {
+        "coverage": 0.7805,
+        "abstention_rate": 0.21950000000000003,
+        "precision_among_accepted": 0.3830877642536835,
+        "overall_hit_rate_incl_abstained_as_miss": 0.299
+      }
+    }
+  },
+  "deterministic_policy_outcomes": {
+    "0.5": {
+      "n_supported": 1689,
+      "n_contradicted": 311,
+      "n_abstain": 0,
+      "n_false_support": 1090,
+      "n_false_contradiction": 274,
+      "supported_rate": 0.8445,
+      "contradicted_rate": 0.1555,
+      "abstain_rate": 0.0,
+      "false_support_rate": 0.6453522794552989,
+      "false_contradiction_rate": 0.8810289389067524
+    },
+    "0.6": {
+      "n_supported": 1672,
+      "n_contradicted": 328,
+      "n_abstain": 0,
+      "n_false_support": 1073,
+      "n_false_contradiction": 288,
+      "supported_rate": 0.836,
+      "contradicted_rate": 0.164,
+      "abstain_rate": 0.0,
+      "false_support_rate": 0.6417464114832536,
+      "false_contradiction_rate": 0.8780487804878049
+    },
+    "0.7": {
+      "n_supported": 1655,
+      "n_contradicted": 345,
+      "n_abstain": 0,
+      "n_false_support": 1056,
+      "n_false_contradiction": 303,
+      "supported_rate": 0.8275,
+      "contradicted_rate": 0.1725,
+      "abstain_rate": 0.0,
+      "false_support_rate": 0.6380664652567976,
+      "false_contradiction_rate": 0.8782608695652174
+    },
+    "0.8": {
+      "n_supported": 1629,
+      "n_contradicted": 369,
+      "n_abstain": 2,
+      "n_false_support": 1030,
+      "n_false_contradiction": 320,
+      "supported_rate": 0.8145,
+      "contradicted_rate": 0.1845,
+      "abstain_rate": 0.001,
+      "false_support_rate": 0.6322897483118478,
+      "false_contradiction_rate": 0.8672086720867209
+    },
+    "0.9": {
+      "n_supported": 1594,
+      "n_contradicted": 395,
+      "n_abstain": 11,
+      "n_false_support": 999,
+      "n_false_contradiction": 342,
+      "supported_rate": 0.797,
+      "contradicted_rate": 0.1975,
+      "abstain_rate": 0.0055,
+      "false_support_rate": 0.6267252195734002,
+      "false_contradiction_rate": 0.8658227848101265
+    },
+    "0.95": {
+      "n_supported": 1561,
+      "n_contradicted": 396,
+      "n_abstain": 43,
+      "n_false_support": 966,
+      "n_false_contradiction": 341,
+      "supported_rate": 0.7805,
+      "contradicted_rate": 0.198,
+      "abstain_rate": 0.0215,
+      "false_support_rate": 0.6188340807174888,
+      "false_contradiction_rate": 0.8611111111111112
+    }
+  },
+  "evidence_consistency_analysis": {
+    "margin_median": 0.0016435682773590088,
+    "margin_distribution": {
+      "count": 2000,
+      "mean": 0.05751670211710734,
+      "median": 0.0016435682773590088,
+      "stdev": 0.15153080073678207,
+      "p10": 7.027387619018555e-05,
+      "p90": 0.17632418870925903,
+      "min": 0.0,
+      "max": 0.9789861459285021
+    },
+    "high_margin_group": {
+      "n": 1000,
+      "precision_among_accepted_at_0.5": 0.46070460704607047
+    },
+    "low_margin_group": {
+      "n": 1000,
+      "precision_among_accepted_at_0.5": 0.2765509989484753
+    },
+    "note": "Descriptive grouping only - no learned fusion. Compares whether queries with a larger gap between the top-1 and top-2 entailment probability have higher evidence-selection precision."
+  },
+  "peak_gpu_memory_gb": 2.6472816467285156,
+  "total_loop_seconds": 450.59125232696533,
+  "n_queries": 2000,
+  "limitations": [
+    "Thresholds are characterized, not selected - no 'best' threshold is declared final.",
+    "Candidate-level threshold analysis treats gold-REFUTES and non-gold candidates identically as negatives for the 'accepted support' detector - see module docstring for the exact definition.",
+    "Calibration (ECE/Brier) is restricted to gold-evidence candidates only; non-gold confidence is reported descriptively without an accuracy label.",
+    "No RAGTruth/TruthfulQA evaluation performed here."
+  ]
+}

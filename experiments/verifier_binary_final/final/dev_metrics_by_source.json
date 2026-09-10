@@ -1,0 +1,172 @@
+{
+  "fever": {
+    "accuracy": 0.9765653275425262,
+    "macro_f1": 0.9704461050540637,
+    "weighted_f1": 0.9766663208745092,
+    "per_class": {
+      "entailment": {
+        "precision": 0.9889986248281035,
+        "recall": 0.9788418708240535,
+        "f1": 0.9838940364405199,
+        "support": 8082
+      },
+      "contradiction": {
+        "precision": 0.9439895185063871,
+        "recall": 0.9703703703703703,
+        "f1": 0.9569981736676075,
+        "support": 2970
+      }
+    },
+    "confusion_matrix": [
+      [
+        7911,
+        171
+      ],
+      [
+        88,
+        2882
+      ]
+    ],
+    "confusion_matrix_labels": [
+      "entailment",
+      "contradiction"
+    ],
+    "num_examples": 11052
+  },
+  "halueval.dialogue": {
+    "accuracy": 0.8697916666666666,
+    "macro_f1": 0.8694653299916457,
+    "weighted_f1": 0.8694653299916458,
+    "per_class": {
+      "entailment": {
+        "precision": 0.9108796296296297,
+        "recall": 0.8197916666666667,
+        "f1": 0.8629385964912281,
+        "support": 960
+      },
+      "contradiction": {
+        "precision": 0.8361742424242424,
+        "recall": 0.9197916666666667,
+        "f1": 0.8759920634920635,
+        "support": 960
+      }
+    },
+    "confusion_matrix": [
+      [
+        787,
+        173
+      ],
+      [
+        77,
+        883
+      ]
+    ],
+    "confusion_matrix_labels": [
+      "entailment",
+      "contradiction"
+    ],
+    "num_examples": 1920
+  },
+  "halueval.qa": {
+    "accuracy": 0.977296181630547,
+    "macro_f1": 0.9772891915386844,
+    "weighted_f1": 0.9772891915386844,
+    "per_class": {
+      "entailment": {
+        "precision": 0.9611166500498505,
+        "recall": 0.9948400412796697,
+        "f1": 0.9776876267748479,
+        "support": 969
+      },
+      "contradiction": {
+        "precision": 0.9946524064171123,
+        "recall": 0.9597523219814241,
+        "f1": 0.976890756302521,
+        "support": 969
+      }
+    },
+    "confusion_matrix": [
+      [
+        964,
+        5
+      ],
+      [
+        39,
+        930
+      ]
+    ],
+    "confusion_matrix_labels": [
+      "entailment",
+      "contradiction"
+    ],
+    "num_examples": 1938
+  },
+  "halueval.summarization": {
+    "accuracy": 0.955050505050505,
+    "macro_f1": 0.9549859187309615,
+    "weighted_f1": 0.9549859187309615,
+    "per_class": {
+      "entailment": {
+        "precision": 0.9923497267759562,
+        "recall": 0.9171717171717172,
+        "f1": 0.9532808398950131,
+        "support": 990
+      },
+      "contradiction": {
+        "precision": 0.9230046948356807,
+        "recall": 0.9929292929292929,
+        "f1": 0.95669099756691,
+        "support": 990
+      }
+    },
+    "confusion_matrix": [
+      [
+        908,
+        82
+      ],
+      [
+        7,
+        983
+      ]
+    ],
+    "confusion_matrix_labels": [
+      "entailment",
+      "contradiction"
+    ],
+    "num_examples": 1980
+  },
+  "halueval_overall": {
+    "accuracy": 0.934395340870161,
+    "macro_f1": 0.934359192654302,
+    "weighted_f1": 0.934359192654302,
+    "per_class": {
+      "entailment": {
+        "precision": 0.9557872034507549,
+        "recall": 0.9109284001370332,
+        "f1": 0.9328188037186459,
+        "support": 2919
+      },
+      "contradiction": {
+        "precision": 0.9149214659685864,
+        "recall": 0.9578622816032888,
+        "f1": 0.9358995815899581,
+        "support": 2919
+      }
+    },
+    "confusion_matrix": [
+      [
+        2659,
+        260
+      ],
+      [
+        123,
+        2796
+      ]
+    ],
+    "confusion_matrix_labels": [
+      "entailment",
+      "contradiction"
+    ],
+    "num_examples": 5838
+  }
+}

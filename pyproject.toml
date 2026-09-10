@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "claimguard"
+version = "0.1.0"
+description = "Hallucination Detection and Self-Correction for LLMs"
+readme = "README.md"
+requires-python = ">=3.12"
+
+# Only packages already installed in the `claimguard` conda environment.
+# No unpinned/new dependencies added here — see requirements.txt for exact
+# frozen versions currently installed.
+dependencies = [
+    "torch",
+    "transformers",
+    "datasets",
+    "accelerate",
+    "peft",
+    "sentence-transformers",
+    "scipy",
+    "scikit-learn",
+    "faiss-cpu",
+    "pyyaml",
+    "tqdm",
+    "pandas",
+    "numpy",
+]
+
+[project.optional-dependencies]
+# Also already installed; grouped separately as they're not core pipeline deps.
+dev = ["matplotlib", "jupyter", "ipykernel"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

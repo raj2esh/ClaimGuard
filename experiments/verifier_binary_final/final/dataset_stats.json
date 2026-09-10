@@ -1,0 +1,66 @@
+{
+  "train_pool_load_stats": {
+    "pool_path": "<PROJECT_ROOT>/data/processed/verifier_pool/train.jsonl",
+    "total_records_in_pool_file": 152720,
+    "usable_records": 152720,
+    "excluded_no_premise_text": 0,
+    "excluded_by_source": {},
+    "note": "As of Step 10, excluded_no_premise_text should be 0 for FEVER SUPPORTS/REFUTES records (resolved premise text now available) - any nonzero FEVER exclusion here would indicate an unresolved claim slipped into the pool file and should be investigated, not assumed benign. See PROJECT_REPORT.md Steps 9-11."
+  },
+  "dev_pool_load_stats": {
+    "pool_path": "<PROJECT_ROOT>/data/processed/verifier_pool/dev.jsonl",
+    "total_records_in_pool_file": 16890,
+    "usable_records": 16890,
+    "excluded_no_premise_text": 0,
+    "excluded_by_source": {},
+    "note": "As of Step 10, excluded_no_premise_text should be 0 for FEVER SUPPORTS/REFUTES records (resolved premise text now available) - any nonzero FEVER exclusion here would indicate an unresolved claim slipped into the pool file and should be investigated, not assumed benign. See PROJECT_REPORT.md Steps 9-11."
+  },
+  "train_final_report": {
+    "split": "train",
+    "total": 152720,
+    "label_counts": {
+      "entailment": 98934,
+      "contradiction": 53786
+    },
+    "label_percentages": {
+      "entailment": 64.78,
+      "contradiction": 35.22
+    },
+    "source_counts": {
+      "halueval.qa": 18062,
+      "halueval.summarization": 17820,
+      "fever": 98758,
+      "halueval.dialogue": 18080
+    },
+    "source_percentages": {
+      "halueval.qa": 11.83,
+      "halueval.summarization": 11.67,
+      "fever": 64.67,
+      "halueval.dialogue": 11.84
+    }
+  },
+  "dev_final_report": {
+    "split": "dev",
+    "total": 16890,
+    "label_counts": {
+      "entailment": 11001,
+      "contradiction": 5889
+    },
+    "label_percentages": {
+      "entailment": 65.13,
+      "contradiction": 34.87
+    },
+    "source_counts": {
+      "halueval.qa": 1938,
+      "halueval.summarization": 1980,
+      "fever": 11052,
+      "halueval.dialogue": 1920
+    },
+    "source_percentages": {
+      "halueval.qa": 11.47,
+      "halueval.summarization": 11.72,
+      "fever": 65.44,
+      "halueval.dialogue": 11.37
+    }
+  }
+}
