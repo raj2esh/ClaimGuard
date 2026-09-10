@@ -101,9 +101,6 @@ this design, so the final verifier is strictly binary
 ## Hardware
 
 - NVIDIA RTX PRO 5000 Blackwell, ~48GB VRAM
-- Shared with an unrelated SAM-RNet training job (`exp42` conda env), which
-  typically holds ~12GB VRAM — ClaimGuard must coexist with it, not disrupt it.
-- Remote server: `<GPU_USERNAME>@<REMOTE_SERVER>`, project root `~/RJ/ClaimGuard/`
 
 ## Project Structure
 
