@@ -176,11 +176,16 @@ result, preserved in full rather than downplayed.
 ```bash
 ssh <GPU_USERNAME>@<REMOTE_SERVER> && source ~/miniconda3/etc/profile.d/conda.sh && \
   conda activate claimguard && cd ~/RJ/ClaimGuard
-python -m pytest tests/ -q          # or: python -m unittest discover -s tests
-python scripts/generate_final_results_tables.py   # rebuild Table 1-7 JSON/CSVs
+python -m unittest discover -s tests               # run the test suite
+python scripts/generate_final_results_tables.py    # rebuild Table 1-7 JSON/CSVs
 python scripts/build_final_reproducibility_manifest.py
-python scripts/generate_final_figures.py           # rebuild Figures 1-8
+python scripts/generate_final_figures.py            # rebuild Figures 1-8
 ```
+
+For rebuilding the full pipeline from raw datasets (acquisition, verifier
+training, retrieval index, end-to-end evaluation) rather than just
+regenerating the Step 22 report from already-saved results, see
+`REPRODUCIBILITY.md` and `scripts/run_full_pipeline.sh --list`.
 
 See `data/processed/final/final_reproducibility_manifest.json` for the exact
 environment, seeds, model identifiers, and config/checkpoint-metadata hashes

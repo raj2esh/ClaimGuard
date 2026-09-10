@@ -11,6 +11,16 @@ from a clean checkout as part of writing this document — the pipeline was
 built and validated incrementally over Steps 1-22 (see `PROJECT_REPORT.md`),
 each step's outputs read the previous step's already-produced artifacts.
 
+**Driver script**: `scripts/run_full_pipeline.sh` sequences every stage
+below (Sections 5, 11-16) using exactly the scripts referenced in this
+document — it does not add any new logic. Run
+`scripts/run_full_pipeline.sh --list` to see all stages,
+`--dry-run` to print the exact commands without running anything, or
+`--fast` to run a small pilot/smoke-test-scale pass (where the underlying
+script supports one) instead of the full multi-hour run. It does not
+download raw datasets for you (Section 5) and does not replace the
+judgment calls in Sections 2-4 (environment/GPU prerequisites).
+
 ## 1. Project overview
 
 ClaimGuard is a retrieval-augmented hallucination-detection and
